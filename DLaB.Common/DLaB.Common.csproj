@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DLaB.Common.nuspec" />
+    <None Include="DLaB.Common.ruleset" />
     <None Include="DLaB.Common.snk" />
     <None Include="DLaB.Common.Source.nuspec" />
     <None Include="packages.config" />
