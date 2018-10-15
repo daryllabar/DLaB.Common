@@ -23,7 +23,7 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>
     </DocumentationFile>
-    <CodeAnalysisRuleSet>..\SourceProjects\XrmUnitTest.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>DLaB.Common.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -84,7 +84,9 @@
     <Compile Include="VersionControl\VsTfsSourceControlProvider.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="DLaB.Common.nuspec" />
     <None Include="DLaB.Common.snk" />
+    <None Include="DLaB.Common.Source.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
