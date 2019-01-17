@@ -1,4 +1,8 @@
-﻿#if DLAB_UNROOT_COMMON_NAMESPACE
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+#if DLAB_UNROOT_COMMON_NAMESPACE
 namespace DLaB.Common
 #else
 namespace Source.DLaB.Common
@@ -16,17 +20,17 @@ namespace Source.DLaB.Common
         internal static ConfigValuesSplitInfo Default { get; } = new ConfigValuesSplitInfo();
 
         /// <summary>
-        /// The Default Entry Seperator
+        /// The Default Entry Separator
         /// </summary>
-        public const char EntrySeperator = '|';
+        public const char EntrySeparator = '|';
 
         /// <summary>
-        /// Gets or sets the Entry seperators.
+        /// Gets or sets the Entry separators.
         /// </summary>
         /// <value>
-        /// The Entry seperators.
+        /// The Entry separators.
         /// </value>
-        public char[] EntrySeperators { get; set; }
+        public char[] EntrySeparators { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether [convert values to lower].
@@ -43,13 +47,117 @@ namespace Source.DLaB.Common
         /// </summary>
         public ConfigValuesSplitInfo()
         {
-            EntrySeperators = new[] { EntrySeperator };
+            EntrySeparators = new[] { EntrySeparator };
             ConvertValuesToLower = false;
         }
 
         internal T ParseValue<T>(string value)
         {
             return value == null ? default(T) : (ConvertValuesToLower ? value.ToLower() : value).ParseOrConvertString<T>();
+        }
+    }
+
+    /// <summary>
+    /// Extension Methods to parse Strings
+    /// </summary>
+    public static class ConfigValuesStringExtensions
+    {
+        /// <summary>
+        /// Parses a string into a List of the given type.  Defaults to | as the separator
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static List<T> GetList<T>(this string value, ConfigValuesSplitInfo info = null)
+        {
+            info = info ?? ConfigValuesSplitInfo.Default;
+            return new List<T>(value.Split(info.EntrySeparators, StringSplitOptions.RemoveEmptyEntries).Select(v => info.ParseValue<T>(v)));
+        }
+
+        /// <summary>
+        /// Parses a string into a Dictionary of the given type.  Defaults to | as the separator and : as the key value separator
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="config"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static Dictionary<TKey, TValue> GetDictionary<TKey, TValue>(this string config, ConfigKeyValueSplitInfo info = null)
+        {
+            info = info ?? ConfigKeyValueSplitInfo.Default;
+
+            return config.Split(info.EntrySeparators, StringSplitOptions.RemoveEmptyEntries).
+                Select(entry => entry.Split(info.KeyValueSeperators, StringSplitOptions.RemoveEmptyEntries)).
+                ToDictionary(values => info.ParseKey<TKey>(values[0]),
+                    values => info.ParseValue<TValue>(values.Length > 1 ? values[1] : null));
+        }
+
+        /// <summary>
+        /// Parses a string into a Dictionary of the given type.  Defaults to | as the separator and : as the key value separator and , as the value separator
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="config"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static Dictionary<TKey, List<TValue>> GetDictionaryList<TKey, TValue>(this string config, ConfigKeyValuesSplitInfo info = null)
+        {
+            info = info ?? ConfigKeyValuesSplitInfo.Default;
+            var dict = new Dictionary<TKey, List<TValue>>();
+            foreach (var entry in config.Split(info.EntrySeparators, StringSplitOptions.RemoveEmptyEntries))
+            {
+                var entryValues = entry.Split(info.KeyValueSeperators, StringSplitOptions.RemoveEmptyEntries);
+                var value = entryValues.Length > 1
+                    ? entryValues[1].Split(info.EntryValuesSeparators, StringSplitOptions.RemoveEmptyEntries).Select(info.ParseValue<TValue>).ToList()
+                    : new List<TValue>();
+                dict.Add(info.ParseKey<TKey>(entryValues[0]), value);
+            }
+
+            return dict;
+        }
+
+        /// <summary>
+        /// Parses a string into a Dictionary of the given type.  Defaults to | as the separator and : as the key value separator and , as the value separator
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="config"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static Dictionary<TKey, HashSet<TValue>> GetDictionaryHash<TKey, TValue>(this string config, ConfigKeyValuesSplitInfo info)
+        {
+            info = info ?? ConfigKeyValuesSplitInfo.Default;
+            var dict = new Dictionary<TKey, HashSet<TValue>>();
+            foreach (var entry in config.Split(info.EntrySeparators, StringSplitOptions.RemoveEmptyEntries))
+            {
+                var entryValues = entry.Split(info.KeyValueSeperators, StringSplitOptions.RemoveEmptyEntries);
+                var value = entryValues.Length > 1
+                    ? new HashSet<TValue>(entryValues[1].Split(info.EntryValuesSeparators, StringSplitOptions.RemoveEmptyEntries).Select(info.ParseValue<TValue>))
+                    : new HashSet<TValue>();
+                dict.Add(info.ParseKey<TKey>(entryValues[0]), value);
+            }
+
+            return dict;
+        }
+
+        /// <summary>
+        /// Parses a string into a HashSet of the given type.  Defaults to | as the separator.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static HashSet<T> GetHashSet<T>(this string value, ConfigValuesSplitInfo info = null)
+        {
+            if (info == null)
+            {
+                info = new ConfigValuesSplitInfo
+                {
+                    ConvertValuesToLower = true
+                };
+            }
+            return new HashSet<T>(value.Split(info.EntrySeparators).Select(v => info.ParseValue<T>(v)));
         }
     }
 }

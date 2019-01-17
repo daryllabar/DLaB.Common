@@ -57,6 +57,9 @@ namespace Source.DLaB.Common
         }
     }
 
+    /// <summary>
+    /// Extension Methods to parse Strings
+    /// </summary>
     public static class ConfigValuesStringExtensions
     {
         /// <summary>
