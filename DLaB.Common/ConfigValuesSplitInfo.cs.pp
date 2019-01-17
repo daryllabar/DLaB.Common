@@ -60,7 +60,11 @@ namespace Source.DLaB.Common
     /// <summary>
     /// Extension Methods to parse Strings
     /// </summary>
+#if DLAB_PUBLIC
     public static class ConfigValuesStringExtensions
+#else
+    internal static class ConfigValuesStringExtensions
+#endif
     {
         /// <summary>
         /// Parses a string into a List of the given type.  Defaults to | as the separator
