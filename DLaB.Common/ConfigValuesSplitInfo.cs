@@ -129,7 +129,7 @@ namespace Source.DLaB.Common
         /// <param name="config"></param>
         /// <param name="info"></param>
         /// <returns></returns>
-        public static Dictionary<TKey, HashSet<TValue>> GetDictionaryHash<TKey, TValue>(this string config, ConfigKeyValuesSplitInfo info)
+        public static Dictionary<TKey, HashSet<TValue>> GetDictionaryHash<TKey, TValue>(this string config, ConfigKeyValuesSplitInfo info = null)
         {
             info = info ?? ConfigKeyValuesSplitInfo.Default;
             var dict = new Dictionary<TKey, HashSet<TValue>>();
