@@ -2,10 +2,10 @@
 <package >
   <metadata>
     <id>DLaB.Common.Source</id>
-    <version>1.2.0.2</version>
+    <version>1.2.0.3</version>
     <authors>Daryl LaBar</authors>
     <owners>Daryl LaBar</owners>
-    <license>MIT</license>
+    <license type="expression">MIT</license>
     <projectUrl>https://github.com/daryllabar/DLaB.Common</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/daryllabar/XrmUnitTest/master/DLaB_Dynamics_64x64.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -19,8 +19,8 @@
     </frameworkAssemblies>
   </metadata>
   <files>
-    <file src="*.cs" target="content\App_Packages\DLaB.Common.Source.1.2.0.2" />
-    <file src="Exceptions\*.cs" target="content\App_Packages\DLaB.Common.Source.1.2.0.2\Exceptions" />
-    <file src="VersionControl\*.cs" target="content\App_Packages\DLaB.Common.Source.1.2.0.2\VersionControl" />
+    <file src="*.cs" target="content\App_Packages\DLaB.Common.Source.1.2.0.3" />
+    <file src="Exceptions\*.cs" target="content\App_Packages\DLaB.Common.Source.1.2.0.3\Exceptions" />
+    <file src="VersionControl\*.cs" target="content\App_Packages\DLaB.Common.Source.1.2.0.3\VersionControl" />
   </files>
 </package>

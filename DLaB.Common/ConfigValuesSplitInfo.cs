@@ -75,6 +75,10 @@ namespace Source.DLaB.Common
         /// <returns></returns>
         public static List<T> GetList<T>(this string value, ConfigValuesSplitInfo info = null)
         {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return new List<T>();
+            }
             info = info ?? ConfigValuesSplitInfo.Default;
             return new List<T>(value.Split(info.EntrySeparators, StringSplitOptions.RemoveEmptyEntries).Select(v => info.ParseValue<T>(v)));
         }
@@ -89,6 +93,10 @@ namespace Source.DLaB.Common
         /// <returns></returns>
         public static Dictionary<TKey, TValue> GetDictionary<TKey, TValue>(this string config, ConfigKeyValueSplitInfo info = null)
         {
+            if (string.IsNullOrWhiteSpace(config))
+            {
+                return new Dictionary<TKey, TValue>();
+            }
             info = info ?? ConfigKeyValueSplitInfo.Default;
 
             return config.Split(info.EntrySeparators, StringSplitOptions.RemoveEmptyEntries).
@@ -107,6 +115,11 @@ namespace Source.DLaB.Common
         /// <returns></returns>
         public static Dictionary<TKey, List<TValue>> GetDictionaryList<TKey, TValue>(this string config, ConfigKeyValuesSplitInfo info = null)
         {
+            if (string.IsNullOrWhiteSpace(config))
+            {
+                return new Dictionary<TKey, List<TValue>>();
+            }
+
             info = info ?? ConfigKeyValuesSplitInfo.Default;
             var dict = new Dictionary<TKey, List<TValue>>();
             foreach (var entry in config.Split(info.EntrySeparators, StringSplitOptions.RemoveEmptyEntries))
@@ -131,6 +144,11 @@ namespace Source.DLaB.Common
         /// <returns></returns>
         public static Dictionary<TKey, HashSet<TValue>> GetDictionaryHash<TKey, TValue>(this string config, ConfigKeyValuesSplitInfo info = null)
         {
+            if (string.IsNullOrWhiteSpace(config))
+            {
+                return new Dictionary<TKey, HashSet<TValue>>();
+            }
+
             info = info ?? ConfigKeyValuesSplitInfo.Default;
             var dict = new Dictionary<TKey, HashSet<TValue>>();
             foreach (var entry in config.Split(info.EntrySeparators, StringSplitOptions.RemoveEmptyEntries))
@@ -154,6 +172,10 @@ namespace Source.DLaB.Common
         /// <returns></returns>
         public static HashSet<T> GetHashSet<T>(this string value, ConfigValuesSplitInfo info = null)
         {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return new HashSet<T>();
+            }
             if (info == null)
             {
                 info = new ConfigValuesSplitInfo
