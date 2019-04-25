@@ -14,6 +14,7 @@
     <copyright>Copyright 2016</copyright>
     <tags>C# Common Utility Extensions</tags>
     <frameworkAssemblies>
+      <frameworkAssembly assemblyName="Microsoft.CSharp" />
       <frameworkAssembly assemblyName="System.Configuration" />
       <frameworkAssembly assemblyName="System.Runtime.Serialization" />
     </frameworkAssemblies>
