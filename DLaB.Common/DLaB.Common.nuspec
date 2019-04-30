@@ -13,6 +13,9 @@
     <releaseNotes>Added Support for VS 2017</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>C# Common Utility Extensions</tags>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Configuration" />
+    </frameworkAssemblies>
   </metadata>
   <files>
 	  <file src="bin\Release\DLaB.Common.*" target="lib\net452" />
