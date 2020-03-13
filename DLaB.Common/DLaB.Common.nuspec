@@ -2,15 +2,15 @@
 <package >
   <metadata>
     <id>DLaB.Common</id>
-    <version>1.2.0.3</version>
+    <version>1.2.0.4</version>
     <authors>Daryl LaBar</authors>
     <owners>Daryl LaBar</owners>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/daryllabar/DLaB.Common</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/daryllabar/XrmUnitTest/master/DLaB_Dynamics_64x64.png</iconUrl>
+    <icon>DLaB_Dynamics_64x64.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Contains some basic extensions and a config helper</description>
-    <releaseNotes>Added Support for VS 2017</releaseNotes>
+    <releaseNotes>Added Support call for getting class attributes from type</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>C# Common Utility Extensions</tags>
     <frameworkAssemblies>
