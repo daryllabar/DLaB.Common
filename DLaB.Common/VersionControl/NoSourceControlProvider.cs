@@ -1,4 +1,5 @@
-﻿
+﻿using System.IO;
+
 #if DLAB_UNROOT_COMMON_NAMESPACE
 namespace DLaB.Common.VersionControl
 #else
@@ -9,28 +10,34 @@ namespace Source.DLaB.Common.VersionControl
     /// Source Control Provider for Interacting with Source Control Versioning
     /// </summary>
 #if DLAB_PUBLIC
-    public interface ISourceControlProvider
+    public class NoSourceControlProvider : ISourceControlProvider
 #else
-    internal interface ISourceControlProvider
+    internal class NoSourceControlProvider: ISourceControlProvider
 #endif
     {
         /// <summary>
         /// Adds the file to be added to source control.
         /// </summary>
         /// <param name="filePath">The file path.</param>
-        void Add(string filePath);
+        public void Add(string filePath) { }
 
         /// <summary>
         /// Checks the files out.  Returns the output text.
         /// </summary>
         /// <param name="fileNames">The file paths.</param>
-        string Checkout(params string[] fileNames);
+        public string Checkout(params string[] fileNames)
+        {
+            return string.Empty;
+        }
 
         /// <summary>
         /// Returns true if the file was unchanged and an undo operation was performed
         /// </summary>
         /// <param name="filePath"></param>
-        bool UndoCheckoutIfUnchanged(string filePath);
+        public bool UndoCheckoutIfUnchanged(string filePath)
+        {
+            return false;
+        }
 
         /// <summary>
         /// Returns true if the file was unchanged and so it was checked out
@@ -38,6 +45,10 @@ namespace Source.DLaB.Common.VersionControl
         /// <param name="filePath">The file path.</param>
         /// <param name="contents">The contents.</param>
         /// <returns></returns>
-        bool CheckoutAndUpdateIfDifferent(string filePath, string contents);
+        public bool CheckoutAndUpdateIfDifferent(string filePath, string contents)
+        {
+            File.WriteAllText(filePath, contents);
+            return true;
+        }
     }
 }

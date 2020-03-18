@@ -79,6 +79,7 @@
     <Compile Include="TypeSafeEnumBase.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="VersionControl\NoSourceControlProvider.cs" />
     <Compile Include="VersionControl\ISourceControlProvider.cs" />
     <Compile Include="VersionControl\SourceControl.cs" />
     <Compile Include="VersionControl\VsTfsSourceControlProvider.cs" />
@@ -93,6 +94,9 @@
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.DependencyValidation.Analyzers.0.10.0\analyzers\dotnet\cs\Microsoft.DependencyValidation.Analyzers.resources.dll" />
     <Analyzer Include="..\packages\Microsoft.DependencyValidation.Analyzers.0.10.0\analyzers\dotnet\Microsoft.DependencyValidation.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DLaB_Dynamics_64x64.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
