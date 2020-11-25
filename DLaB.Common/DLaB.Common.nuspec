@@ -2,12 +2,12 @@
 <package >
   <metadata>
     <id>DLaB.Common</id>
-    <version>1.2.0.4</version>
+    <version>1.2.0.8</version>
     <authors>Daryl LaBar</authors>
     <owners>Daryl LaBar</owners>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/daryllabar/DLaB.Common</projectUrl>
-    <icon>DLaB_Dynamics_64x64.png</icon>
+    <icon>images\DLaB_Dynamics_64x64.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Contains some basic extensions and a config helper</description>
     <releaseNotes>Added Support call for getting class attributes from type</releaseNotes>
@@ -16,8 +16,13 @@
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System.Configuration" />
     </frameworkAssemblies>
+    <contentFiles>
+      <files include="cs/netcoreapp/**/*.*" buildAction="Compile" />
+    </contentFiles>
   </metadata>
   <files>
 	  <file src="bin\Release\DLaB.Common.*" target="lib\net452" />
+    <file src="bin\Release\DLaB.Common.*" target="contentFiles\cs\any" />
+    <file src="DLaB_Dynamics_64x64.png" target="images\" />
   </files>
 </package>
