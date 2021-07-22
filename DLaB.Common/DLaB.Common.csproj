@@ -69,6 +69,7 @@
     <Compile Include="ConfigKeyValuesSplitInfo.cs" />
     <Compile Include="ConfigProvider.cs" />
     <Compile Include="ConfigValuesSplitInfo.cs" />
+    <Compile Include="DLaBConfig.cs" />
     <Compile Include="Exceptions\DictionaryDuplicateKeyException.cs" />
     <Compile Include="Exceptions\EnumCaseUndefinedException.cs" />
     <Compile Include="Exceptions\TypeArgumentException.cs" />
