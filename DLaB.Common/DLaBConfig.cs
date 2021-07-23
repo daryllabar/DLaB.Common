@@ -55,11 +55,17 @@ namespace Source.DLaB.Common
         /// <param name="use">The current usage of the Encoding.</param>
         /// <param name="textOrValue">The text string to encode from, or the object to encode to.</param>
         Encoding GetEncoding(EncodingUses use, object textOrValue = null);
-    } 
+    }
 
+    /// <summary>
+    /// Handles loading the DLaBConfig
+    /// </summary>
     internal static class DLaBConfig
     {
         private static readonly Lazy<IDLaBConfig> LazyConfig = new Lazy<IDLaBConfig>(CreateConfigInstance);
+        /// <summary>
+        /// The Config, lazily loaded getting the first implementation of the interface.
+        /// </summary>
         public static IDLaBConfig Config => LazyConfig.Value;
 
         private static IDLaBConfig CreateConfigInstance()
