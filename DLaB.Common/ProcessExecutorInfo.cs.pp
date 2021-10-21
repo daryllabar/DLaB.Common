@@ -225,7 +225,7 @@ namespace Source.DLaB.Common
             }
 
 #if NET
-            if (Password != null && OperatingSystem.IsWindows())
+            if (OperatingSystem.IsWindows() && Password != null)
 #else
             if (Password != null)
 #endif
@@ -239,7 +239,7 @@ namespace Source.DLaB.Common
             }
 
 #if NET
-            if (Domain != null && OperatingSystem.IsWindows())
+            if (OperatingSystem.IsWindows() && Domain != null)
 #else
             if (Domain != null)
 #endif
@@ -248,7 +248,7 @@ namespace Source.DLaB.Common
             }
 
 #if NET
-            if (LoadUserProfile.HasValue && OperatingSystem.IsWindows())
+            if (OperatingSystem.IsWindows() && LoadUserProfile.HasValue)
 #else
             if (LoadUserProfile.HasValue)
 #endif
