@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>DLaB.Common.Source</id>
-    <version>1.4.0.6</version>
+    <version>1.4.0.7</version>
     <authors>Daryl LaBar</authors>
     <owners>Daryl LaBar</owners>
     <license type="expression">MIT</license>
@@ -27,11 +27,11 @@
   </metadata>
   <files>
     <file src="DLaB_Dynamics_64x64.png" target="images\" />
-    <file src="*.cs" target="content\App_Packages\DLaB.Common.Source.1.4.0.6" />
-    <file src="Exceptions\*.cs" target="content\App_Packages\DLaB.Common.Source.1.4.0.6\Exceptions" />
-    <file src="VersionControl\*.cs" target="content\App_Packages\DLaB.Common.Source.1.4.0.6\VersionControl" />
-    <file src="*.cs" target="contentFiles\cs\netcoreapp\DLaB.Common.Source.1.4.0.6" />
-    <file src="Exceptions\*.cs" target="contentFiles\cs\netcoreapp\DLaB.Common.Source.1.4.0.6\Exceptions" />
-    <file src="VersionControl\*.cs" target="contentFiles\cs\netcoreapp\DLaB.Common.Source.1.4.0.6\VersionControl" />
+    <file src="*.cs" target="content\App_Packages\DLaB.Common.Source.1.4.0.7" />
+    <file src="Exceptions\*.cs" target="content\App_Packages\DLaB.Common.Source.1.4.0.7\Exceptions" />
+    <file src="VersionControl\*.cs" target="content\App_Packages\DLaB.Common.Source.1.4.0.7\VersionControl" />
+    <file src="*.cs" target="contentFiles\cs\netcoreapp\DLaB.Common.Source.1.4.0.7" />
+    <file src="Exceptions\*.cs" target="contentFiles\cs\netcoreapp\DLaB.Common.Source.1.4.0.7\Exceptions" />
+    <file src="VersionControl\*.cs" target="contentFiles\cs\netcoreapp\DLaB.Common.Source.1.4.0.7\VersionControl" />
   </files>
 </package>
