@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>DLaB.Common</id>
-    <version>1.4.0.7</version>
+    <version>1.4.0.8</version>
     <authors>Daryl LaBar</authors>
     <owners>Daryl LaBar</owners>
     <license type="expression">MIT</license>
@@ -14,14 +14,16 @@
     <copyright>Copyright 2016</copyright>
     <tags>C# Common Utility Extensions</tags>
     <frameworkAssemblies>
-      <frameworkAssembly assemblyName="System.Configuration" />
+	    <frameworkAssembly assemblyName="Microsoft.CSharp" />
+	    <frameworkAssembly assemblyName="System.Configuration" />
+	    <frameworkAssembly assemblyName="System.Runtime.Serialization" />
     </frameworkAssemblies>
     <contentFiles>
       <files include="cs/netcoreapp/**/*.*" buildAction="Compile" />
     </contentFiles>
   </metadata>
   <files>
-	  <file src="bin\Release\DLaB.Common.*" target="lib\net452" />
+	  <file src="bin\Release\DLaB.Common.*" target="lib\net462" />
     <file src="bin\Release\DLaB.Common.*" target="contentFiles\cs\any" />
     <file src="DLaB_Dynamics_64x64.png" target="images\" />
   </files>

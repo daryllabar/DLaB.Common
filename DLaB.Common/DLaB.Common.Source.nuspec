@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>DLaB.Common.Source</id>
-    <version>1.4.0.7</version>
+    <version>1.4.0.8</version>
     <authors>Daryl LaBar</authors>
     <owners>Daryl LaBar</owners>
     <license type="expression">MIT</license>
@@ -10,7 +10,7 @@
     <icon>images\DLaB_Dynamics_64x64.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Contains some basic extensions and a config helper</description>
-    <releaseNotes>Added Support for VS 2017</releaseNotes>
+    <releaseNotes>Added Support for .Net SDK Projects</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>C# Common Utility Extensions</tags>
     <frameworkAssemblies>
@@ -18,20 +18,22 @@
       <frameworkAssembly assemblyName="System.Configuration" />
       <frameworkAssembly assemblyName="System.Runtime.Serialization" />
     </frameworkAssemblies>
-    <dependencies>
-      <dependency id="System.Configuration.ConfigurationManager" version="5.0.0.0" />
-    </dependencies>
     <contentFiles>
       <files include="cs/netcoreapp/**/*.*" buildAction="Compile" />
     </contentFiles>
   </metadata>
   <files>
     <file src="DLaB_Dynamics_64x64.png" target="images\" />
-    <file src="*.cs" target="content\App_Packages\DLaB.Common.Source.1.4.0.7" />
-    <file src="Exceptions\*.cs" target="content\App_Packages\DLaB.Common.Source.1.4.0.7\Exceptions" />
-    <file src="VersionControl\*.cs" target="content\App_Packages\DLaB.Common.Source.1.4.0.7\VersionControl" />
-    <file src="*.cs" target="contentFiles\cs\netcoreapp\DLaB.Common.Source.1.4.0.7" />
-    <file src="Exceptions\*.cs" target="contentFiles\cs\netcoreapp\DLaB.Common.Source.1.4.0.7\Exceptions" />
-    <file src="VersionControl\*.cs" target="contentFiles\cs\netcoreapp\DLaB.Common.Source.1.4.0.7\VersionControl" />
+    <file src="*.cs" target="content\App_Packages\DLaB.Common.Source.1.4.0.8" />
+    <file src="Exceptions\*.cs" target="content\App_Packages\DLaB.Common.Source.1.4.0.8\Exceptions" />
+    <file src="VersionControl\*.cs" target="content\App_Packages\DLaB.Common.Source.1.4.0.8\VersionControl" />
+		
+    <file src="*.cs" target="contentFiles\cs\netcoreapp\DLaB.Common.Source.1.4.0.8" />
+    <file src="Exceptions\*.cs" target="contentFiles\cs\netcoreapp\DLaB.Common.Source.1.4.0.8\Exceptions" />
+    <file src="VersionControl\*.cs" target="contentFiles\cs\netcoreapp\DLaB.Common.Source.1.4.0.8\VersionControl" />
+		
+    <file src="*.cs" target="contentFiles\cs\net462\App_Packages\DLaB.Common.Source.1.4.0.8" />
+    <file src="Exceptions\*.cs" target="contentFiles\cs\net462\App_Packages\DLaB.Common.Source.1.4.0.8\Exceptions" />
+    <file src="VersionControl\*.cs" target="contentFiles\cs\net462\App_Packages\DLaB.Common.Source.1.4.0.8\VersionControl" />
   </files>
 </package>
