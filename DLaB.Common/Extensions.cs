@@ -742,7 +742,7 @@ namespace Source.DLaB.Common
 
         #region IExtensibleDataObject
 
-#if NETCOREAPP == false
+#if NETCOREAPP == false && NETSTANDARD2_0 == false
         /// <summary>
         /// Serializes the specified obj, returning it's xml serialized value.
         /// </summary>

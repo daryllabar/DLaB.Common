@@ -13,18 +13,24 @@
     <releaseNotes>Added Support call for getting class attributes from type</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>C# Common Utility Extensions</tags>
-    <frameworkAssemblies>
-	    <frameworkAssembly assemblyName="Microsoft.CSharp" />
-	    <frameworkAssembly assemblyName="System.Configuration" />
-	    <frameworkAssembly assemblyName="System.Runtime.Serialization" />
+		<dependencies>
+			<group targetFramework="NET6.0">
+				<dependency id="System.Configuration.ConfigurationManager" Version="*" exclude="Build,Analyzers"  />
+			</group>
+		</dependencies>		
+    <frameworkAssemblies> 
+	    <frameworkAssembly assemblyName="Microsoft.CSharp"             targetFramework=".NETFramework4.6.2, .NETFramework4.7.2, .NETFramework4.8" />
+	    <frameworkAssembly assemblyName="System.Configuration"         targetFramework=".NETFramework4.6.2, .NETFramework4.7.2, .NETFramework4.8" />
+	    <frameworkAssembly assemblyName="System.Runtime.Serialization" targetFramework=".NETFramework4.6.2, .NETFramework4.7.2, .NETFramework4.8" />
     </frameworkAssemblies>
-    <contentFiles>
-      <files include="cs/netcoreapp/**/*.*" buildAction="Compile" />
-    </contentFiles>
   </metadata>
   <files>
-	  <file src="bin\Release\DLaB.Common.*" target="lib\net462" />
-    <file src="bin\Release\DLaB.Common.*" target="contentFiles\cs\any" />
+	  <file src="bin\Release\net462\DLaB.Common.dll" target="lib\net462\DLaB.Common.dll" />
+	  <file src="bin\Release\net472\DLaB.Common.dll" target="lib\net472\DLaB.Common.dll" />
+	  <file src="bin\Release\net48\DLaB.Common.dll" target="lib\net48\DLaB.Common.dll" />
+	  <file src="bin\Release\net6.0\DLaB.Common.dll" target="lib\net6.0\DLaB.Common.dll" />
+   
+		
     <file src="DLaB_Dynamics_64x64.png" target="images\" />
   </files>
 </package>
