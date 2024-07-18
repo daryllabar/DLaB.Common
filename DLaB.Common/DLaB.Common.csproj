@@ -1,117 +1,34 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A7284A23-15F3-411D-BC26-2890A11053FE}</ProjectGuid>
+	  <TargetFrameworks>net462;net6.0</TargetFrameworks>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DLaB.Common</RootNamespace>
-    <AssemblyName>DLaB.Common</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;DLAB_PUBLIC DLAB_UNROOT_COMMON_NAMESPACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
-    <CodeAnalysisRuleSet>DLaB.Common.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE;DLAB_PUBLIC DLAB_UNROOT_NAMESPACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\DLaB.Common.xml</DocumentationFile>
-    <CodeAnalysisRuleSet>DLaB.Common.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>DLaB.Common.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'LocalNuget|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\LocalNuget\</OutputPath>
     <DefineConstants>TRACE;DEBUG;DLAB_PUBLIC DLAB_UNROOT_COMMON_NAMESPACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>DLaB.Common.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>
-    </DocumentationFile>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Config.cs" />
-    <Compile Include="ConfigKeyValueSplitInfo.cs" />
-    <Compile Include="ConfigKeyValuesSplitInfo.cs" />
-    <Compile Include="ConfigProvider.cs" />
-    <Compile Include="ConfigValuesSplitInfo.cs" />
-    <Compile Include="DLaBConfig.cs" />
-    <Compile Include="Exceptions\DictionaryDuplicateKeyException.cs" />
-    <Compile Include="Exceptions\EnumCaseUndefinedException.cs" />
-    <Compile Include="Exceptions\TypeArgumentException.cs" />
-    <Compile Include="Extensions.cs" />
-    <Compile Include="ProcessExecutor.cs" />
-    <Compile Include="ProcessExecutorInfo.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TypeSafeEnumBase.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="VersionControl\NoSourceControlProvider.cs" />
-    <Compile Include="VersionControl\ISourceControlProvider.cs" />
-    <Compile Include="VersionControl\SourceControl.cs" />
-    <Compile Include="VersionControl\VsTfsSourceControlProvider.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="DLaB.Common.nuspec" />
-    <None Include="DLaB.Common.ruleset" />
-    <None Include="DLaB.Common.snk" />
-    <None Include="DLaB.Common.Source.nuspec" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\Microsoft.DependencyValidation.Analyzers.0.10.0\analyzers\dotnet\cs\Microsoft.DependencyValidation.Analyzers.resources.dll" />
-    <Analyzer Include="..\packages\Microsoft.DependencyValidation.Analyzers.0.10.0\analyzers\dotnet\Microsoft.DependencyValidation.Analyzers.dll" />
-  </ItemGroup>
+	<PropertyGroup>
+		<AssemblyOriginatorKeyFile>DLaB.Common.snk</AssemblyOriginatorKeyFile>
+		<Title>DLaB.Common</Title>
+		<FileVersion>1.4.0.8</FileVersion>
+		<SignAssembly>true</SignAssembly>
+	</PropertyGroup>	
   <ItemGroup>
     <Content Include="DLaB_Dynamics_64x64.png" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == LocalNuget "C:\Users\dlabar\Google Drive\NuGet\LocalBuild\Publish - DLaB.Common.bat"</PostBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net462' or '$(TargetFramework)' == 'net472' or '$(TargetFramework)' == 'net48'">
+		<Reference Include="Microsoft.CSharp" />
+		<Reference Include="System.Configuration" />
+  </ItemGroup>
 </Project>

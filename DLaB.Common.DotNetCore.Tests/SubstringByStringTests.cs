@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Source.DLaB.Common;
 
 namespace DLaB.Common.Tests
 {
@@ -18,6 +17,7 @@ namespace DLaB.Common.Tests
             Assert.IsNull(SingleTestString.SubstringByString("a", "B"));
             Assert.IsNull(SingleTestString.SubstringByString("A", "b"));
             Assert.IsNull(SingleTestString.SubstringByString("a", "B", out var endIndex));
+            Assert.AreEqual(-1, endIndex);
             Assert.IsNull(SingleTestString.SubstringByString("A", "b", out endIndex));
             Assert.AreEqual(-1, endIndex);
             Assert.IsNull(SingleTestString.SubstringByString(0, "b"));
