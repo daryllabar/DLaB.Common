@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>DLaB.Common</id>
-    <version>1.4.0.8</version>
+    <version>1.5.0.0</version>
     <authors>Daryl LaBar</authors>
     <owners>Daryl LaBar</owners>
     <license type="expression">MIT</license>
@@ -14,8 +14,11 @@
     <copyright>Copyright 2016</copyright>
     <tags>C# Common Utility Extensions</tags>
 		<dependencies>
+			<group targetFramework=".NETFramework4.6.2"/>
+			<group targetFramework=".NETFramework4.7.2"/>
+			<group targetFramework=".NETFramework4.8"/>
 			<group targetFramework="NET6.0">
-				<dependency id="System.Configuration.ConfigurationManager" Version="*" exclude="Build,Analyzers"  />
+				<dependency id="System.Configuration.ConfigurationManager" version="8.0" exclude="Build,Analyzers"  />
 			</group>
 		</dependencies>		
     <frameworkAssemblies> 
@@ -30,7 +33,6 @@
 	  <file src="bin\Release\net48\DLaB.Common.dll" target="lib\net48\DLaB.Common.dll" />
 	  <file src="bin\Release\net6.0\DLaB.Common.dll" target="lib\net6.0\DLaB.Common.dll" />
    
-		
     <file src="DLaB_Dynamics_64x64.png" target="images\" />
   </files>
 </package>

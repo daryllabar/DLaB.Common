@@ -2,7 +2,6 @@
   <PropertyGroup>
 	  <TargetFrameworks>net462;net472;net48;net6.0</TargetFrameworks>
     <OutputType>Library</OutputType>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>TRACE;DEBUG;DLAB_PUBLIC;DLAB_UNROOT_COMMON_NAMESPACE</DefineConstants>
@@ -13,7 +12,7 @@
 	<PropertyGroup>
 		<AssemblyOriginatorKeyFile>DLaB.Common.snk</AssemblyOriginatorKeyFile>
 		<Title>DLaB.Common</Title>
-		<FileVersion>1.4.0.8</FileVersion>
+		<FileVersion>1.5.0.0</FileVersion>
 		<SignAssembly>true</SignAssembly>
 	</PropertyGroup>	
   <ItemGroup>
