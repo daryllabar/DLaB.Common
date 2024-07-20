@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Source.DLaB.Common;
 
 namespace DLaB.Common.Tests
 {
@@ -34,10 +33,10 @@ namespace DLaB.Common.Tests
             var dict = new Dictionary<string, List<int>>
             {
                 ["null"] = null,
-                ["empty"] = new List<int> (),
-                ["one"] = new List<int>{ 1 },
-                ["two"] = new List<int>{ 1, 2 },
-                ["three"] = new List<int> { 1, 2, 3 }
+                ["empty"] = [],
+                ["one"] = [1],
+                ["two"] = [1, 2],
+                ["three"] = [1, 2, 3]
             };
 
             var values = Config.ToString(dict);
@@ -66,19 +65,15 @@ namespace DLaB.Common.Tests
         {
             var dict = new Dictionary<string, HashSet<string>>
             {
-                {"0", new HashSet<string>()},
+                {"0", [] },
                 {
-                    "1", new HashSet<string>
-                    {
-                        "A"
-                    }
+                    "1", ["A"]
                 },
                 {
-                    "2", new HashSet<string>
-                    {
+                    "2", [
                         "A",
                         "B"
-                    }
+                    ]
                 }
             };
 

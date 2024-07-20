@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29613.14
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLaB.Common", "DLaB.Common\DLaB.Common.csproj", "{A7284A23-15F3-411D-BC26-2890A11053FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DLaB.Common", "DLaB.Common\DLaB.Common.csproj", "{A7284A23-15F3-411D-BC26-2890A11053FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLaB.Common.Tests", "DLaB.Common.Tests\DLaB.Common.Tests.csproj", "{75A8CDF7-FB29-447C-84C5-08DA93D6ECA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DLaB.Common.Tests", "DLaB.Common.Tests\DLaB.Common.Tests.csproj", "{75A8CDF7-FB29-447C-84C5-08DA93D6ECA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLaB.Common.DotNetCore.Tests", "DLaB.Common.DotNetCore.Tests\DLaB.Common.DotNetCore.Tests.csproj", "{9B664FDE-1E7E-493E-9951-2E9A1F8B350F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DLaB.Common.DotNetCore.Tests", "DLaB.Common.DotNetCore.Tests\DLaB.Common.DotNetCore.Tests.csproj", "{9B664FDE-1E7E-493E-9951-2E9A1F8B350F}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DLaB.Common.Tests.Shared", "DLaB.Common.Tests.Shared\DLaB.Common.Tests.Shared.shproj", "{E8689A06-A953-4953-82C2-B91BEFE49368}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,5 +35,10 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {81BA38B4-239C-49D6-98BA-2DAB64DC6345}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		DLaB.Common.Tests.Shared\DLaB.Common.Tests.Shared.projitems*{75a8cdf7-fb29-447c-84c5-08da93d6eca4}*SharedItemsImports = 5
+		DLaB.Common.Tests.Shared\DLaB.Common.Tests.Shared.projitems*{9b664fde-1e7e-493e-9951-2e9a1f8b350f}*SharedItemsImports = 5
+		DLaB.Common.Tests.Shared\DLaB.Common.Tests.Shared.projitems*{e8689a06-a953-4953-82c2-b91befe49368}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal
