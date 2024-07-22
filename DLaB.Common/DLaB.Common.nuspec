@@ -21,16 +21,24 @@
 				<dependency id="System.Configuration.ConfigurationManager" version="8.0" exclude="Build,Analyzers"  />
 			</group>
 		</dependencies>		
-    <frameworkAssemblies> 
-	    <frameworkAssembly assemblyName="Microsoft.CSharp"             targetFramework=".NETFramework4.6.2, .NETFramework4.7.2, .NETFramework4.8" />
-	    <frameworkAssembly assemblyName="System.Configuration"         targetFramework=".NETFramework4.6.2, .NETFramework4.7.2, .NETFramework4.8" />
-	    <frameworkAssembly assemblyName="System.Runtime.Serialization" targetFramework=".NETFramework4.6.2, .NETFramework4.7.2, .NETFramework4.8" />
+    <frameworkAssemblies>
+	    <frameworkAssembly assemblyName="Microsoft.CSharp"             targetFramework="net462" />
+	    <frameworkAssembly assemblyName="System.Configuration"         targetFramework="net462" />
+	    <frameworkAssembly assemblyName="System.Runtime.Serialization" targetFramework="net462" />
+
+	    <frameworkAssembly assemblyName="Microsoft.CSharp"             targetFramework="net472" />
+	    <frameworkAssembly assemblyName="System.Configuration"         targetFramework="net472" />
+	    <frameworkAssembly assemblyName="System.Runtime.Serialization" targetFramework="net472" />
+
+	    <frameworkAssembly assemblyName="Microsoft.CSharp"             targetFramework="net48" />
+	    <frameworkAssembly assemblyName="System.Configuration"         targetFramework="net48" />
+	    <frameworkAssembly assemblyName="System.Runtime.Serialization" targetFramework="net48" />
     </frameworkAssemblies>
   </metadata>
   <files>
 	  <file src="bin\Release\net462\DLaB.Common.dll" target="lib\net462\DLaB.Common.dll" />
 	  <file src="bin\Release\net472\DLaB.Common.dll" target="lib\net472\DLaB.Common.dll" />
-	  <file src="bin\Release\net48\DLaB.Common.dll" target="lib\net48\DLaB.Common.dll" />
+	  <file src="bin\Release\net48\DLaB.Common.dll"  target="lib\net48\DLaB.Common.dll" />
 	  <file src="bin\Release\net6.0\DLaB.Common.dll" target="lib\net6.0\DLaB.Common.dll" />
    
     <file src="DLaB_Dynamics_64x64.png" target="images\" />

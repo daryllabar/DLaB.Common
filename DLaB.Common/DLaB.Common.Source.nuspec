@@ -14,9 +14,17 @@
     <copyright>Copyright 2016</copyright>
     <tags>C# Common Utility Extensions</tags>
     <frameworkAssemblies>
-      <frameworkAssembly assemblyName="Microsoft.CSharp" />
-      <frameworkAssembly assemblyName="System.Configuration" />
-      <frameworkAssembly assemblyName="System.Runtime.Serialization" />
+	    <frameworkAssembly assemblyName="Microsoft.CSharp"             targetFramework="net462" />
+	    <frameworkAssembly assemblyName="System.Configuration"         targetFramework="net462" />
+	    <frameworkAssembly assemblyName="System.Runtime.Serialization" targetFramework="net462" />
+
+	    <frameworkAssembly assemblyName="Microsoft.CSharp"             targetFramework="net472" />
+	    <frameworkAssembly assemblyName="System.Configuration"         targetFramework="net472" />
+	    <frameworkAssembly assemblyName="System.Runtime.Serialization" targetFramework="net472" />
+
+	    <frameworkAssembly assemblyName="Microsoft.CSharp"             targetFramework="net48" />
+	    <frameworkAssembly assemblyName="System.Configuration"         targetFramework="net48" />
+	    <frameworkAssembly assemblyName="System.Runtime.Serialization" targetFramework="net48" />
     </frameworkAssemblies>
     <contentFiles>
       <files include="cs/netcoreapp/**/*.*" buildAction="Compile" />
@@ -24,16 +32,20 @@
   </metadata>
   <files>
     <file src="DLaB_Dynamics_64x64.png" target="images\" />
-    <file src="*.cs" target="content\App_Packages\DLaB.Common.Source.1.5.0.0" />
-    <file src="Exceptions\*.cs" target="content\App_Packages\DLaB.Common.Source.1.5.0.0\Exceptions" />
-    <file src="VersionControl\*.cs" target="content\App_Packages\DLaB.Common.Source.1.5.0.0\VersionControl" />
+    <file src="*.cs"                target="contentFiles\cs\net462\App_Packages\DLaB.Common.Source.1.5.0.9" />
+    <file src="Exceptions\*.cs"     target="contentFiles\cs\net462\App_Packages\DLaB.Common.Source.1.5.0.9\Exceptions" />
+    <file src="VersionControl\*.cs" target="contentFiles\cs\net462\App_Packages\DLaB.Common.Source.1.5.0.9\VersionControl" />
+
+    <file src="*.cs"                target="contentFiles\cs\net472\App_Packages\DLaB.Common.Source.1.5.0.9" />
+    <file src="Exceptions\*.cs"     target="contentFiles\cs\net472\App_Packages\DLaB.Common.Source.1.5.0.9\Exceptions" />
+    <file src="VersionControl\*.cs" target="contentFiles\cs\net472\App_Packages\DLaB.Common.Source.1.5.0.9\VersionControl" />
+
+    <file src="*.cs"                target="contentFiles\cs\net48\App_Packages\DLaB.Common.Source.1.5.0.9" />
+    <file src="Exceptions\*.cs"     target="contentFiles\cs\net48\App_Packages\DLaB.Common.Source.1.5.0.9\Exceptions" />
+    <file src="VersionControl\*.cs" target="contentFiles\cs\net48\App_Packages\DLaB.Common.Source.1.5.0.9\VersionControl" />
 		
-    <file src="*.cs" target="contentFiles\cs\netcoreapp\DLaB.Common.Source.1.5.0.0" />
-    <file src="Exceptions\*.cs" target="contentFiles\cs\netcoreapp\DLaB.Common.Source.1.5.0.0\Exceptions" />
-    <file src="VersionControl\*.cs" target="contentFiles\cs\netcoreapp\DLaB.Common.Source.1.5.0.0\VersionControl" />
-		
-    <file src="*.cs" target="contentFiles\cs\net462\App_Packages\DLaB.Common.Source.1.5.0.0" />
-    <file src="Exceptions\*.cs" target="contentFiles\cs\net462\App_Packages\DLaB.Common.Source.1.5.0.0\Exceptions" />
-    <file src="VersionControl\*.cs" target="contentFiles\cs\net462\App_Packages\DLaB.Common.Source.1.5.0.0\VersionControl" />
+    <file src="*.cs"                target="contentFiles\cs\net6.0\App_Packages\DLaB.Common.Source.1.5.0.9" />
+    <file src="Exceptions\*.cs"     target="contentFiles\cs\net6.0\App_Packages\DLaB.Common.Source.1.5.0.9\Exceptions" />
+    <file src="VersionControl\*.cs" target="contentFiles\cs\net6.0\App_Packages\DLaB.Common.Source.1.5.0.9\VersionControl" />
   </files>
 </package>
