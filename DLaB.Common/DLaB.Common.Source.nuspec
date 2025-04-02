@@ -34,18 +34,14 @@
     <file src="DLaB_Dynamics_64x64.png" target="images\" />
     <file src="*.cs"                target="contentFiles\cs\net462\App_Packages\DLaB.Common.Source.1.5.0.2" />
     <file src="Exceptions\*.cs"     target="contentFiles\cs\net462\App_Packages\DLaB.Common.Source.1.5.0.2\Exceptions" />
-    <file src="VersionControl\*.cs" target="contentFiles\cs\net462\App_Packages\DLaB.Common.Source.1.5.0.2\VersionControl" />
 
     <file src="*.cs"                target="contentFiles\cs\net472\App_Packages\DLaB.Common.Source.1.5.0.2" />
     <file src="Exceptions\*.cs"     target="contentFiles\cs\net472\App_Packages\DLaB.Common.Source.1.5.0.2\Exceptions" />
-    <file src="VersionControl\*.cs" target="contentFiles\cs\net472\App_Packages\DLaB.Common.Source.1.5.0.2\VersionControl" />
 
     <file src="*.cs"                target="contentFiles\cs\net48\App_Packages\DLaB.Common.Source.1.5.0.2" />
     <file src="Exceptions\*.cs"     target="contentFiles\cs\net48\App_Packages\DLaB.Common.Source.1.5.0.2\Exceptions" />
-    <file src="VersionControl\*.cs" target="contentFiles\cs\net48\App_Packages\DLaB.Common.Source.1.5.0.2\VersionControl" />
 		
     <file src="*.cs"                target="contentFiles\cs\net6.0\App_Packages\DLaB.Common.Source.1.5.0.2" />
     <file src="Exceptions\*.cs"     target="contentFiles\cs\net6.0\App_Packages\DLaB.Common.Source.1.5.0.2\Exceptions" />
-    <file src="VersionControl\*.cs" target="contentFiles\cs\net6.0\App_Packages\DLaB.Common.Source.1.5.0.2\VersionControl" />
   </files>
 </package>
