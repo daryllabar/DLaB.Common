@@ -101,12 +101,12 @@ namespace Source.DLaB.Common.Exceptions
         /// <param name="undefinedEnumValue">The undefined enum value.</param>
         /// <param name="message">The message.</param>
         /// <returns></returns>
-        protected static string GetMessage(int undefinedEnumValue, string message = null)
+        protected static string? GetMessage(int undefinedEnumValue, string? message = null)
         {
             var enumType = typeof(TEnum);
-            if (!IsEnum(enumType, ref message)) { return message; }
+            if (!IsEnum(enumType, ref message)) { return message!; }
 
-            return FormatMessage(message, enumType, (TEnum)(object)undefinedEnumValue, undefinedEnumValue);
+            return FormatMessage(message!, enumType, (TEnum)(object)undefinedEnumValue, undefinedEnumValue);
         }
 
         /// <summary>
@@ -115,12 +115,12 @@ namespace Source.DLaB.Common.Exceptions
         /// <param name="undefinedEnumValue">The undefined enum value.</param>
         /// <param name="message">The message.</param>
         /// <returns></returns>
-        protected static string GetMessage(TEnum undefinedEnumValue, string message = null)
+        protected static string GetMessage(TEnum undefinedEnumValue, string? message = null)
         {
             var enumType = typeof(TEnum);
-            if (!IsEnum(enumType, ref message)) { return message; }
+            if (!IsEnum(enumType, ref message)) { return message!; }
 
-            return FormatMessage(message, enumType, undefinedEnumValue, (int)(object)undefinedEnumValue);
+            return FormatMessage(message!, enumType, undefinedEnumValue, (int)(object)undefinedEnumValue);
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace Source.DLaB.Common.Exceptions
         /// <param name="enumType">Type of the enum.</param>
         /// <param name="message">The message.</param>
         /// <returns></returns>
-        protected static bool IsEnum(Type enumType, ref string message)
+        protected static bool IsEnum(Type enumType, ref string? message)
         {
             if (string.IsNullOrWhiteSpace(message))
             {

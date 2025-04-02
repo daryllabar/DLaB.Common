@@ -17,7 +17,7 @@ namespace Source.DLaB.Common
 # endif
     {
         private static readonly object SingletonLock = new object();
-        private static NameValueCollection _instance;
+        private static NameValueCollection? _instance;
         
         /// <summary>
         /// Gets the instance.
@@ -44,7 +44,7 @@ namespace Source.DLaB.Common
                     InitializeProvider(ConfigurationManager.AppSettings); 
                 }
 
-                return _instance;
+                return _instance!;
             }
         }
 

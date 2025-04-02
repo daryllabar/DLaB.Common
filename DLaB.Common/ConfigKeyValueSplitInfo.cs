@@ -21,10 +21,10 @@ namespace Source.DLaB.Common
         public const char KeyValueSeperator = ':';
 
         /// <summary>
-        /// Gets or sets the key value seperators.
+        /// Gets or sets the key value separators.
         /// </summary>
         /// <value>
-        /// The key value seperators.
+        /// The key value separators.
         /// </value>
         public char[] KeyValueSeperators { get; set; }
 
@@ -47,7 +47,7 @@ namespace Source.DLaB.Common
             ConvertKeysToLower = true;
         }
 
-        internal T ParseKey<T>(string key)
+        internal T? ParseKey<T>(string? key)
         {
             return key == null ? default(T) : (ConvertKeysToLower ? key.ToLower() : key).ParseOrConvertString<T>();
         }

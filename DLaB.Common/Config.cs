@@ -123,7 +123,7 @@ namespace Source.DLaB.Common
         /// <param name="defaultValue">The default value.</param>
         /// <param name="info">The settings by which to split the config value.</param>
         /// <returns></returns>
-        public static T GetAppSettingOrDefaultByKey<T>(string appSetting, string key, T defaultValue, ConfigKeyValueSplitInfo info = null)
+        public static T GetAppSettingOrDefaultByKey<T>(string appSetting, string key, T defaultValue, ConfigKeyValueSplitInfo? info = null)
         {
             try
             {
@@ -140,7 +140,12 @@ namespace Source.DLaB.Common
                                 FirstOrDefault(v => v.Split(info.KeyValueSeperators).
                                                       Select(k => info.ParseKey<string>(k)).
                                                       FirstOrDefault() == info.ParseKey<string>(key));
-                return config == null ? defaultValue : SubstringByString(config, info.KeyValueSeperators.ToString()).ParseOrConvertString<T>();
+                if (config == null)
+                {
+                    return defaultValue;
+                }
+                var stringValue = SubstringByString(config, info.KeyValueSeperators.ToString() ?? string.Empty);
+                return stringValue == null ? defaultValue : stringValue.ParseOrConvertString<T>();
             }
             catch (Exception ex)
             {
@@ -149,13 +154,13 @@ namespace Source.DLaB.Common
         }
 
         /// <summary>
-        /// Returns a the substring after the index of the first occurence of the startstring.
+        /// Returns the substring after the index of the first occurence of the startstring.
         /// Example: "012345678910".SubstringByString("2"); returns "345678910"
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="startString">The string that marks the start of the substring to be returned.</param>
         /// <returns></returns>
-        private static string SubstringByString(string value, string startString)
+        private static string? SubstringByString(string value, string startString)
         {
             var start = value.IndexOf(startString, StringComparison.Ordinal);
             return start < 0 ? null : value.Substring(start + startString.Length);
@@ -167,14 +172,14 @@ namespace Source.DLaB.Common
 
         /// <summary>
         /// Attempts to read the setting from the config file and Parse to get the value.
-        /// The value from the config if first split by the seperator
+        /// The value from the config if first split by the separator
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="appSetting"></param>
         /// <param name="defaultValue"></param>
         /// <param name="info"></param>
         /// <returns></returns>
-        public static List<T> GetList<T>(string appSetting, List<T> defaultValue, ConfigValuesSplitInfo info = null)
+        public static List<T?> GetList<T>(string appSetting, List<T?> defaultValue, ConfigValuesSplitInfo? info = null)
         {
             try
             {
@@ -189,14 +194,14 @@ namespace Source.DLaB.Common
 
         /// <summary>
         /// Attempts to read the setting from the config file and Parse to get the value.
-        /// The value from the config if first split by the seperator
+        /// The value from the config if first split by the separator
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="appSetting"></param>
         /// <param name="defaultValue"></param>
         /// <param name="info"></param>
         /// <returns></returns>
-        public static List<T> GetList<T>(string appSetting, string defaultValue, ConfigValuesSplitInfo info = null)
+        public static List<T?> GetList<T>(string appSetting, string defaultValue, ConfigValuesSplitInfo? info = null)
         {
             try
             {
@@ -211,14 +216,14 @@ namespace Source.DLaB.Common
 
         /// <summary>
         /// Attempts to read the setting from the config file and Parse to get the value.
-        /// The value from the config if first split by the seperator
+        /// The value from the config if first split by the separator
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="appSetting"></param>
         /// <param name="getDefaultValue"></param>
         /// <param name="info"></param>
         /// <returns></returns>
-        public static List<T> GetList<T>(string appSetting, Func<List<T>> getDefaultValue, ConfigValuesSplitInfo info = null)
+        public static List<T?> GetList<T>(string appSetting, Func<List<T?>> getDefaultValue, ConfigValuesSplitInfo? info = null)
         {
             try
             {
@@ -248,14 +253,14 @@ namespace Source.DLaB.Common
         /// <param name="getDefault">Function to get the default value.</param>
         /// <param name="info">The settings by which to split the config value.</param>
         /// <returns></returns>
-        public static Dictionary<TKey, TValue> GetDictionary<TKey, TValue>(string appSetting,
-                                                                           Func<Dictionary<TKey, TValue>> getDefault,
-                                                                           ConfigKeyValueSplitInfo info = null)
+        public static Dictionary<TKey, TValue?> GetDictionary<TKey, TValue>(string appSetting,
+                                                                           Func<Dictionary<TKey, TValue?>> getDefault,
+                                                                           ConfigKeyValueSplitInfo? info = null) where TKey : notnull
         {
             try
             {
                 var config = ConfigProvider.Instance[appSetting];
-                return config == null ? getDefault() : config.GetDictionary<TKey, TValue>(info);
+                return config == null ? getDefault() : config.GetDictionary<TKey, TValue?>(info);
             }
             catch (Exception ex)
             {
@@ -276,14 +281,14 @@ namespace Source.DLaB.Common
         /// <param name="defaultValue">The default value.</param>
         /// <param name="info">The settings by which to split the config value.</param>
         /// <returns></returns>
-        public static Dictionary<TKey, TValue> GetDictionary<TKey, TValue>(string appSetting, 
-                                                                           Dictionary<TKey, TValue> defaultValue,
-                                                                           ConfigKeyValueSplitInfo info = null)
+        public static Dictionary<TKey, TValue?> GetDictionary<TKey, TValue>(string appSetting, 
+                                                                           Dictionary<TKey, TValue?> defaultValue,
+                                                                           ConfigKeyValueSplitInfo? info = null) where TKey : notnull
         {
             try
             {
                 var config = ConfigProvider.Instance[appSetting];
-                return config == null ? defaultValue : config.GetDictionary<TKey, TValue>(info);
+                return config == null ? defaultValue : config.GetDictionary<TKey, TValue?>(info);
             }
             catch (Exception ex)
             {
@@ -304,14 +309,14 @@ namespace Source.DLaB.Common
         /// <param name="defaultValue">The default value.</param>
         /// <param name="info">The settings by which to split the config value.</param>
         /// <returns></returns>
-        public static Dictionary<TKey, TValue> GetDictionary<TKey, TValue>(string appSetting,
+        public static Dictionary<TKey, TValue?> GetDictionary<TKey, TValue>(string appSetting,
                                                                            string defaultValue,
-                                                                           ConfigKeyValueSplitInfo info = null)
+                                                                           ConfigKeyValueSplitInfo? info = null) where TKey : notnull
         {
             try
             {
                 var config = ConfigProvider.Instance[appSetting] ?? defaultValue;
-                return config.GetDictionary<TKey, TValue>(info);
+                return config.GetDictionary<TKey, TValue?>(info);
             }
             catch (Exception ex)
             {
@@ -338,7 +343,7 @@ namespace Source.DLaB.Common
         /// <returns></returns>
         public static Dictionary<TKey, List<TValue>> GetDictionaryList<TKey, TValue>(string appSetting,
                                                                                      Dictionary<TKey, List<TValue>> defaultValue,
-                                                                                     ConfigKeyValuesSplitInfo info = null)
+                                                                                     ConfigKeyValuesSplitInfo? info = null) where TKey : notnull
         {
             try
             {
@@ -366,7 +371,7 @@ namespace Source.DLaB.Common
         /// <returns></returns>
         public static Dictionary<TKey, List<TValue>> GetDictionaryList<TKey, TValue>(string appSetting,
                                                                                      string defaultValue,
-                                                                                     ConfigKeyValuesSplitInfo info = null)
+                                                                                     ConfigKeyValuesSplitInfo? info = null) where TKey : notnull
         {
             try
             {
@@ -394,7 +399,7 @@ namespace Source.DLaB.Common
         /// <returns></returns>
         public static Dictionary<TKey, List<TValue>> GetDictionaryList<TKey, TValue>(string appSetting,
                                                                                      Func<Dictionary<TKey, List<TValue>>> getDefault,
-                                                                                     ConfigKeyValuesSplitInfo info = null)
+                                                                                     ConfigKeyValuesSplitInfo? info = null) where TKey : notnull
         {
             try
             {
@@ -426,7 +431,7 @@ namespace Source.DLaB.Common
         /// <returns></returns>
         public static Dictionary<TKey, HashSet<TValue>> GetDictionaryHash<TKey, TValue>(string appSetting,
                                                                                      Dictionary<TKey, HashSet<TValue>> defaultValue,
-                                                                                     ConfigKeyValuesSplitInfo info = null)
+                                                                                     ConfigKeyValuesSplitInfo? info = null) where TKey : notnull
         {
             try
             {
@@ -454,7 +459,7 @@ namespace Source.DLaB.Common
         /// <returns></returns>
         public static Dictionary<TKey, HashSet<TValue>> GetDictionaryHash<TKey, TValue>(string appSetting,
                                                                                         string defaultValue,
-                                                                                        ConfigKeyValuesSplitInfo info = null)
+                                                                                        ConfigKeyValuesSplitInfo? info = null) where TKey : notnull
         {
             try
             {
@@ -482,7 +487,7 @@ namespace Source.DLaB.Common
         /// <returns></returns>
         public static Dictionary<TKey, HashSet<TValue>> GetDictionaryHash<TKey, TValue>(string appSetting,
                                                                                         Func<Dictionary<TKey, HashSet<TValue>>> getDefault,
-                                                                                        ConfigKeyValuesSplitInfo info = null)
+                                                                                        ConfigKeyValuesSplitInfo? info = null) where TKey : notnull
         {
             try
             {
@@ -508,7 +513,7 @@ namespace Source.DLaB.Common
         /// <param name="info">The information.</param>
         /// <returns></returns>
         /// <exception cref="System.FormatException"></exception>
-        public static HashSet<T> GetHashSet<T>(string appSetting, Func<HashSet<T>> getDefault, ConfigValuesSplitInfo info = null)
+        public static HashSet<T?> GetHashSet<T>(string appSetting, Func<HashSet<T?>> getDefault, ConfigValuesSplitInfo? info = null)
         {
             try
             {
@@ -529,7 +534,7 @@ namespace Source.DLaB.Common
         /// <param name="defaultValue"></param>
         /// <param name="info">The settings by which to split the config value.</param>
         /// <returns></returns>
-        public static HashSet<T> GetHashSet<T>(string appSetting, HashSet<T> defaultValue, ConfigValuesSplitInfo info = null)
+        public static HashSet<T?> GetHashSet<T>(string appSetting, HashSet<T?> defaultValue, ConfigValuesSplitInfo? info = null)
         {
             try
             {
@@ -550,7 +555,7 @@ namespace Source.DLaB.Common
         /// <param name="defaultValue"></param>
         /// <param name="info">The settings by which to split the config value.</param>
         /// <returns></returns>
-        public static HashSet<T> GetHashSet<T>(string appSetting, string defaultValue, ConfigValuesSplitInfo info = null)
+        public static HashSet<T?> GetHashSet<T>(string appSetting, string defaultValue, ConfigValuesSplitInfo? info = null)
         {
             try
             {
@@ -577,15 +582,15 @@ namespace Source.DLaB.Common
         /// <returns>
         /// A <see cref="string" /> that represents this instance.
         /// </returns>
-        public static string ToString<T>(IEnumerable<T> list, ConfigKeyValueSplitInfo info = null, Func<T, string> getString = null)
+        public static string ToString<T>(IEnumerable<T> list, ConfigKeyValueSplitInfo? info = null, Func<T, string>? getString = null)
         {
             info = info ?? ConfigKeyValuesSplitInfo.Default;
             return string.Join(info.EntrySeparators.First().ToString(), ToStringIEnumerable(list, info, getString));
         }
 
-        private static IEnumerable<string> ToStringIEnumerable<T>(IEnumerable<T> list, ConfigKeyValueSplitInfo info, Func<T, string> getString)
+        private static IEnumerable<string> ToStringIEnumerable<T>(IEnumerable<T> list, ConfigKeyValueSplitInfo info, Func<T, string>? getString)
         {
-            getString = getString ?? ToStringDefault;
+            getString ??= ToStringDefault;
             return list.Select(s => getString(s)).Select(s => info.ConvertValuesToLower ? s.ToLower() : s);
         }
 
@@ -602,18 +607,18 @@ namespace Source.DLaB.Common
         /// A <see cref="string" /> that represents the given dictionary object to be stored as a string
         /// </returns>
         public static string ToString<TKey, TValue>(Dictionary<TKey, TValue> dictionary, 
-                                                    ConfigKeyValueSplitInfo info = null, 
-                                                    Func<TKey,string> getKeyString = null,
-                                                    Func<TValue, string> getValueString = null)
+                                                    ConfigKeyValueSplitInfo? info = null, 
+                                                    Func<TKey,string>? getKeyString = null,
+                                                    Func<TValue, string>? getValueString = null) where TKey : notnull
         {
             info = info ?? ConfigKeyValueSplitInfo.Default;
             return string.Join(info.EntrySeparators.First().ToString(), ToStringDictionary(dictionary, info, getKeyString, getValueString));
         }
 
-        private static IEnumerable<string> ToStringDictionary<TKey, TValue>(Dictionary<TKey, TValue> dictionary, ConfigKeyValueSplitInfo info, Func<TKey, string> getKeyString, Func<TValue, string> getValueString)
+        private static IEnumerable<string> ToStringDictionary<TKey, TValue>(Dictionary<TKey, TValue> dictionary, ConfigKeyValueSplitInfo info, Func<TKey, string>? getKeyString, Func<TValue, string>? getValueString) where TKey : notnull
         {
-            getKeyString = getKeyString ?? ToStringDefault;
-            getValueString = getValueString ?? ToStringDefault;
+            getKeyString ??= ToStringDefault;
+            getValueString ??= ToStringDefault;
 
             var values = from kvp in dictionary
                 let key = getKeyString(kvp.Key)
@@ -635,18 +640,18 @@ namespace Source.DLaB.Common
         /// A <see cref="string" /> that represents the given dictionary object to be stored as a string
         /// </returns>
         public static string ToString<TKey, TValue>(Dictionary<TKey, List<TValue>> dictionary,
-                                            ConfigKeyValuesSplitInfo info = null,
-                                            Func<TKey, string> getKeyString = null,
-                                            Func<TValue, string> getValueString = null)
+                                            ConfigKeyValuesSplitInfo? info = null,
+                                            Func<TKey, string>? getKeyString = null,
+                                            Func<TValue, string>? getValueString = null) where TKey : notnull
         {
             info = info ?? ConfigKeyValuesSplitInfo.Default;
             return string.Join(info.EntrySeparators.First().ToString(), ToStringDictionaryList(dictionary, info, getKeyString, getValueString));
         }
 
-        private static List<string> ToStringDictionaryList<TKey, TValue>(Dictionary<TKey, List<TValue>> dictionary, ConfigKeyValuesSplitInfo info, Func<TKey, string> getKeyString, Func<TValue, string> getValueString)
+        private static List<string> ToStringDictionaryList<TKey, TValue>(Dictionary<TKey, List<TValue>> dictionary, ConfigKeyValuesSplitInfo info, Func<TKey, string>? getKeyString, Func<TValue, string>? getValueString) where TKey : notnull
         {
-            getKeyString = getKeyString ?? ToStringDefault;
-            getValueString = getValueString ?? ToStringDefault;
+            getKeyString ??= ToStringDefault;
+            getValueString ??= ToStringDefault;
 
             var values = (from kvp in dictionary
                 let key = getKeyString(kvp.Key)
@@ -669,15 +674,15 @@ namespace Source.DLaB.Common
         /// A <see cref="string" /> that represents the given dictionary object to be stored as a string
         /// </returns>
         public static string ToString<TKey, TValue>(Dictionary<TKey, HashSet<TValue>> dictionary,
-                                            ConfigKeyValuesSplitInfo info = null,
-                                            Func<TKey, string> getKeyString = null,
-                                            Func<TValue, string> getValueString = null)
+                                            ConfigKeyValuesSplitInfo? info = null,
+                                            Func<TKey, string>? getKeyString = null,
+                                            Func<TValue, string>? getValueString = null) where TKey : notnull
         {
             info = info ?? ConfigKeyValuesSplitInfo.Default;
             return string.Join(info.EntrySeparators.First().ToString(), ToStringDictionaryHashSet(dictionary, info, getKeyString, getValueString));
         }
 
-        private static List<string> ToStringDictionaryHashSet<TKey, TValue>(Dictionary<TKey, HashSet<TValue>> dictionary, ConfigKeyValuesSplitInfo info, Func<TKey, string> getKeyString, Func<TValue, string> getValueString)
+        private static List<string> ToStringDictionaryHashSet<TKey, TValue>(Dictionary<TKey, HashSet<TValue>> dictionary, ConfigKeyValuesSplitInfo info, Func<TKey, string>? getKeyString, Func<TValue, string>? getValueString) where TKey : notnull
         {
             getKeyString = getKeyString ?? ToStringDefault;
             getValueString = getValueString ?? ToStringDefault;
@@ -700,15 +705,15 @@ namespace Source.DLaB.Common
         /// <returns>
         /// A <see cref="string" /> that represents this instance.
         /// </returns>
-        public static string ToString<T>(HashSet<T> hashset, ConfigKeyValueSplitInfo info = null, Func<T, string> getString = null)
+        public static string ToString<T>(HashSet<T> hashset, ConfigKeyValueSplitInfo? info = null, Func<T, string>? getString = null)
         {
             info = info ?? ConfigKeyValuesSplitInfo.Default;
             return string.Join(info.EntrySeparators.First().ToString(), ToStringHashSet(hashset, info, getString));
         }
 
-        private static IEnumerable<string> ToStringHashSet<T>(HashSet<T> hashset, ConfigKeyValueSplitInfo info, Func<T, string> getString)
+        private static IEnumerable<string> ToStringHashSet<T>(HashSet<T> hashset, ConfigKeyValueSplitInfo info, Func<T, string>? getString)
         {
-            getString = getString ?? ToStringDefault;
+            getString ??= ToStringDefault;
             var values = hashset.Select(s => getString(s)).Select(s => info.ConvertValuesToLower ? s.ToLower() : s);
             return values;
         }
@@ -717,10 +722,10 @@ namespace Source.DLaB.Common
         {
             if (value != null)
             {
-                return value.ToString();
+                return value.ToString() ?? string.Empty;
             }
             var result = default(T);
-            return result?.ToString();
+            return result?.ToString() ?? string.Empty;
         }
 
         #endregion ToString
@@ -738,7 +743,7 @@ namespace Source.DLaB.Common
         /// <returns>
         /// A <see cref="string" /> that represents this instance.
         /// </returns>
-        public static string ToStringSorted<T>(IEnumerable<T> list, ConfigKeyValueSplitInfo info = null, Func<T, string> getString = null, Func<IEnumerable<string>, IOrderedEnumerable<string>> sort = null)
+        public static string ToStringSorted<T>(IEnumerable<T> list, ConfigKeyValueSplitInfo? info = null, Func<T, string>? getString = null, Func<IEnumerable<string>, IOrderedEnumerable<string>>? sort = null)
         {
             info = info ?? ConfigKeyValuesSplitInfo.Default;
             sort = sort ?? DefaultSort();
@@ -764,10 +769,10 @@ namespace Source.DLaB.Common
         /// A <see cref="string" /> that represents the given dictionary object to be stored as a string
         /// </returns>
         public static string ToStringSorted<TKey, TValue>(Dictionary<TKey, TValue> dictionary,
-                                                    ConfigKeyValueSplitInfo info = null,
-                                                    Func<TKey, string> getKeyString = null,
-                                                    Func<TValue, string> getValueString = null,
-                                                    Func<IEnumerable<string>, IOrderedEnumerable<string>> sort = null)
+                                                    ConfigKeyValueSplitInfo? info = null,
+                                                    Func<TKey, string>? getKeyString = null,
+                                                    Func<TValue, string>? getValueString = null,
+                                                    Func<IEnumerable<string>, IOrderedEnumerable<string>>? sort = null) where TKey : notnull
         {
             info = info ?? ConfigKeyValueSplitInfo.Default;
             sort = sort ?? DefaultSort();
@@ -788,10 +793,10 @@ namespace Source.DLaB.Common
         /// A <see cref="string" /> that represents the given dictionary object to be stored as a string
         /// </returns>
         public static string ToStringSorted<TKey, TValue>(Dictionary<TKey, List<TValue>> dictionary,
-                                            ConfigKeyValuesSplitInfo info = null,
-                                            Func<TKey, string> getKeyString = null,
-                                            Func<TValue, string> getValueString = null,
-                                            Func<IEnumerable<string>, IOrderedEnumerable<string>> sort = null)
+                                            ConfigKeyValuesSplitInfo? info = null,
+                                            Func<TKey, string>? getKeyString = null,
+                                            Func<TValue, string>? getValueString = null,
+                                            Func<IEnumerable<string>, IOrderedEnumerable<string>>? sort = null) where TKey : notnull
         {
             info = info ?? ConfigKeyValuesSplitInfo.Default;
             sort = sort ?? DefaultSort();
@@ -812,10 +817,10 @@ namespace Source.DLaB.Common
         /// A <see cref="string" /> that represents the given dictionary object to be stored as a string
         /// </returns>
         public static string ToStringSorted<TKey, TValue>(Dictionary<TKey, HashSet<TValue>> dictionary,
-                                            ConfigKeyValuesSplitInfo info = null,
-                                            Func<TKey, string> getKeyString = null,
-                                            Func<TValue, string> getValueString = null,
-                                            Func<IEnumerable<string>, IOrderedEnumerable<string>> sort = null)
+                                            ConfigKeyValuesSplitInfo? info = null,
+                                            Func<TKey, string>? getKeyString = null,
+                                            Func<TValue, string>? getValueString = null,
+                                            Func<IEnumerable<string>, IOrderedEnumerable<string>>? sort = null) where TKey : notnull
         {
             info = info ?? ConfigKeyValuesSplitInfo.Default;
             sort = sort ?? DefaultSort();
@@ -833,7 +838,7 @@ namespace Source.DLaB.Common
         /// <returns>
         /// A <see cref="string" /> that represents this instance.
         /// </returns>
-        public static string ToStringSorted<T>(HashSet<T> hashset, ConfigKeyValueSplitInfo info = null, Func<T, string> getString = null, Func<IEnumerable<string>, IOrderedEnumerable<string>> sort = null)
+        public static string ToStringSorted<T>(HashSet<T> hashset, ConfigKeyValueSplitInfo? info = null, Func<T, string>? getString = null, Func<IEnumerable<string>, IOrderedEnumerable<string>>? sort = null)
         {
             info = info ?? ConfigKeyValuesSplitInfo.Default;
             sort = sort ?? DefaultSort();

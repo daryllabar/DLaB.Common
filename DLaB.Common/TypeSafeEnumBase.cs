@@ -7,7 +7,7 @@ namespace Source.DLaB.Common
 #endif
 {
     /// <summary>
-    /// Base class to Create Enums that are typed to something besides int, and allowed to be exapnded by other code bases
+    /// Base class to Create Enums that are typed to something besides int, and allowed to be expanded by other code bases
     /// </summary>
     /// <typeparam name="T"></typeparam>
 
@@ -60,7 +60,7 @@ namespace Source.DLaB.Common
         /// </returns>
         public override string ToString()
         {
-            return Value == null ? String.Empty : Value.ToString();
+            return Value?.ToString() ?? string.Empty;
         }
     }
 

@@ -51,7 +51,7 @@ namespace Source.DLaB.Common
             ConvertValuesToLower = false;
         }
 
-        internal T ParseValue<T>(string value)
+        internal T? ParseValue<T>(string? value)
         {
             return value == null ? default(T) : (ConvertValuesToLower ? value.ToLower() : value).ParseOrConvertString<T>();
         }
@@ -73,14 +73,14 @@ namespace Source.DLaB.Common
         /// <param name="value"></param>
         /// <param name="info"></param>
         /// <returns></returns>
-        public static List<T> GetList<T>(this string value, ConfigValuesSplitInfo info = null)
+        public static List<T?> GetList<T>(this string value, ConfigValuesSplitInfo? info = null)
         {
             if (string.IsNullOrWhiteSpace(value))
             {
-                return new List<T>();
+                return new List<T?>();
             }
             info = info ?? ConfigValuesSplitInfo.Default;
-            return new List<T>(value.Split(info.EntrySeparators, StringSplitOptions.RemoveEmptyEntries).Select(v => info.ParseValue<T>(v)));
+            return new List<T?>(value.Split(info.EntrySeparators, StringSplitOptions.RemoveEmptyEntries).Select(v => info.ParseValue<T>(v)));
         }
 
         /// <summary>
@@ -91,17 +91,17 @@ namespace Source.DLaB.Common
         /// <param name="config"></param>
         /// <param name="info"></param>
         /// <returns></returns>
-        public static Dictionary<TKey, TValue> GetDictionary<TKey, TValue>(this string config, ConfigKeyValueSplitInfo info = null)
+        public static Dictionary<TKey, TValue?> GetDictionary<TKey, TValue>(this string config, ConfigKeyValueSplitInfo? info = null) where TKey : notnull
         {
             if (string.IsNullOrWhiteSpace(config))
             {
-                return new Dictionary<TKey, TValue>();
+                return new Dictionary<TKey, TValue?>();
             }
-            info = info ?? ConfigKeyValueSplitInfo.Default;
+            info ??= ConfigKeyValueSplitInfo.Default;
 
             return config.Split(info.EntrySeparators, StringSplitOptions.RemoveEmptyEntries).
                 Select(entry => entry.Split(info.KeyValueSeperators, StringSplitOptions.RemoveEmptyEntries)).
-                ToDictionary(values => info.ParseKey<TKey>(values[0]),
+                ToDictionary(values => info.ParseKey<TKey>(values[0])!,
                     values => info.ParseValue<TValue>(values.Length > 1 ? values[1] : null));
         }
 
@@ -113,7 +113,7 @@ namespace Source.DLaB.Common
         /// <param name="config"></param>
         /// <param name="info"></param>
         /// <returns></returns>
-        public static Dictionary<TKey, List<TValue>> GetDictionaryList<TKey, TValue>(this string config, ConfigKeyValuesSplitInfo info = null)
+        public static Dictionary<TKey, List<TValue>> GetDictionaryList<TKey, TValue>(this string config, ConfigKeyValuesSplitInfo? info = null) where TKey : notnull
         {
             if (string.IsNullOrWhiteSpace(config))
             {
@@ -126,9 +126,9 @@ namespace Source.DLaB.Common
             {
                 var entryValues = entry.Split(info.KeyValueSeperators, StringSplitOptions.RemoveEmptyEntries);
                 var value = entryValues.Length > 1
-                    ? entryValues[1].Split(info.EntryValuesSeparators, StringSplitOptions.RemoveEmptyEntries).Select(info.ParseValue<TValue>).ToList()
+                    ? entryValues[1].Split(info.EntryValuesSeparators, StringSplitOptions.RemoveEmptyEntries).Select(v => info.ParseValue<TValue>(v)!).ToList()
                     : new List<TValue>();
-                dict.Add(info.ParseKey<TKey>(entryValues[0]), value);
+                dict.Add(info.ParseKey<TKey>(entryValues[0])!, value);
             }
 
             return dict;
@@ -142,7 +142,7 @@ namespace Source.DLaB.Common
         /// <param name="config"></param>
         /// <param name="info"></param>
         /// <returns></returns>
-        public static Dictionary<TKey, HashSet<TValue>> GetDictionaryHash<TKey, TValue>(this string config, ConfigKeyValuesSplitInfo info = null)
+        public static Dictionary<TKey, HashSet<TValue>> GetDictionaryHash<TKey, TValue>(this string config, ConfigKeyValuesSplitInfo? info = null) where TKey : notnull
         {
             if (string.IsNullOrWhiteSpace(config))
             {
@@ -155,9 +155,9 @@ namespace Source.DLaB.Common
             {
                 var entryValues = entry.Split(info.KeyValueSeperators, StringSplitOptions.RemoveEmptyEntries);
                 var value = entryValues.Length > 1
-                    ? new HashSet<TValue>(entryValues[1].Split(info.EntryValuesSeparators, StringSplitOptions.RemoveEmptyEntries).Select(info.ParseValue<TValue>))
+                    ? new HashSet<TValue>(entryValues[1].Split(info.EntryValuesSeparators, StringSplitOptions.RemoveEmptyEntries).Select(info.ParseValue<TValue>)!)
                     : new HashSet<TValue>();
-                dict.Add(info.ParseKey<TKey>(entryValues[0]), value);
+                dict.Add(info.ParseKey<TKey>(entryValues[0])!, value);
             }
 
             return dict;
@@ -170,20 +170,17 @@ namespace Source.DLaB.Common
         /// <param name="value"></param>
         /// <param name="info"></param>
         /// <returns></returns>
-        public static HashSet<T> GetHashSet<T>(this string value, ConfigValuesSplitInfo info = null)
+        public static HashSet<T?> GetHashSet<T>(this string value, ConfigValuesSplitInfo? info = null)
         {
             if (string.IsNullOrWhiteSpace(value))
             {
-                return new HashSet<T>();
+                return new HashSet<T?>();
             }
-            if (info == null)
+            info ??= new ConfigValuesSplitInfo
             {
-                info = new ConfigValuesSplitInfo
-                {
-                    ConvertValuesToLower = true
-                };
-            }
-            return new HashSet<T>(value.Split(info.EntrySeparators).Select(v => info.ParseValue<T>(v)));
+                ConvertValuesToLower = true
+            };
+            return new HashSet<T?>(value.Split(info.EntrySeparators).Select(v => info.ParseValue<T>(v)));
         }
     }
 }

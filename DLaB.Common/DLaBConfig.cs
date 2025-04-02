@@ -47,14 +47,14 @@ namespace Source.DLaB.Common
         /// </summary>
         /// <param name="textOrValue">The text string when called from DeserializeJson and the value to serialize when called from SerializeToJson.</param>
         /// <param name="encoding">The encoding, either the passed in value, or the default value if none is given.</param>
-        DataContractJsonSerializerSettings GetJsonSerializerSettings(object textOrValue = null, Encoding encoding = null);
+        DataContractJsonSerializerSettings GetJsonSerializerSettings(object? textOrValue = null, Encoding? encoding = null);
 
         /// <summary>
         /// Defines the Encoding class to use by default for the given extension methods if none is provided
         /// </summary>
         /// <param name="use">The current usage of the Encoding.</param>
         /// <param name="textOrValue">The text string to encode from, or the object to encode to.</param>
-        Encoding GetEncoding(EncodingUses use, object textOrValue = null);
+        Encoding GetEncoding(EncodingUses use, object? textOrValue = null);
     }
 
     /// <summary>
@@ -76,12 +76,12 @@ namespace Source.DLaB.Common
                 return new DefaultConfig();
             }
 
-            return (IDLaBConfig)Activator.CreateInstance(configType, false);
+            return (IDLaBConfig)(Activator.CreateInstance(configType, false) ?? throw new Exception("Unable to create Instance!"));
         }
 
         private class DefaultConfig : IDLaBConfig
         {
-            public DataContractJsonSerializerSettings GetJsonSerializerSettings(object text = null, Encoding encoding = null)
+            public DataContractJsonSerializerSettings GetJsonSerializerSettings(object? text = null, Encoding? encoding = null)
             {
                 return new DataContractJsonSerializerSettings
                 {
@@ -91,7 +91,7 @@ namespace Source.DLaB.Common
                 };
             }
 
-            public Encoding GetEncoding(EncodingUses use, object text = null)
+            public Encoding GetEncoding(EncodingUses use, object? text = null)
             {
                 return Encoding.UTF8;
             }

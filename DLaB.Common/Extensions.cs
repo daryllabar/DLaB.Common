@@ -15,6 +15,7 @@ using System.Text;
 
 #if DLAB_UNROOT_COMMON_NAMESPACE
 using DLaB.Common.Exceptions;
+// ReSharper disable CanSimplifyDictionaryTryGetValueWithGetValueOrDefault
 
 namespace DLaB.Common
 #else
@@ -41,7 +42,7 @@ namespace Source.DLaB.Common
         /// <param name="zippedBytes">The zipped bytes to unzip.</param>
         /// <param name="encoding">The Encoding to use to parse the bytes.  Defaults to UTF8.</param>
         /// <returns></returns>
-        public static string Unzip(this byte[] zippedBytes, Encoding encoding = null)
+        public static string Unzip(this byte[] zippedBytes, Encoding? encoding = null)
         {
             using (var zipped = new MemoryStream(zippedBytes))
             using (var unzipper = new System.IO.Compression.GZipStream(zipped, System.IO.Compression.CompressionMode.Decompress))
@@ -91,7 +92,7 @@ namespace Source.DLaB.Common
         /// <param name="keySelector">The key selector.</param>
         /// <returns></returns>
         public static ConcurrentDictionary<TKey, TElement> ToConcurrentDictionary<TKey, TElement>(
-            this IEnumerable<TElement> source, Func<TElement, TKey> keySelector)
+            this IEnumerable<TElement> source, Func<TElement, TKey> keySelector) where TKey : notnull
         {
             return source.ToConcurrentDictionary(keySelector, Instance<TElement>());
         }
@@ -107,7 +108,7 @@ namespace Source.DLaB.Common
         /// <param name="elementSelector">The element selector.</param>
         /// <returns></returns>
         public static ConcurrentDictionary<TKey, TElement> ToConcurrentDictionary<TSource, TKey, TElement>(
-            this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector)
+            this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) where TKey : notnull
         {
             var concurrentDictionary = new ConcurrentDictionary<TKey, TElement>();
             foreach (var local in source)
@@ -127,7 +128,7 @@ namespace Source.DLaB.Common
         /// <param name="keySelector">The key selector.</param>
         /// <returns></returns>
         public static ConcurrentDictionary<TKey, List<TSource>> ToConcurrentDictionaryList<TSource, TKey>(
-            this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
+            this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) where TKey : notnull
         {
             return source.ToConcurrentDictionaryList(keySelector, Instance<TSource>());
         }
@@ -143,7 +144,7 @@ namespace Source.DLaB.Common
         /// <param name="elementSelector">The element selector.</param>
         /// <returns></returns>
         public static ConcurrentDictionary<TKey, List<TElement>> ToConcurrentDictionaryList<TSource, TKey, TElement>(
-            this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector)
+            this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) where TKey : notnull
         {
             var dictionary = new ConcurrentDictionary<TKey, List<TElement>>();
             foreach (var local in source)
@@ -172,7 +173,7 @@ namespace Source.DLaB.Common
         /// <returns></returns>
         public static TElement GetOrAddSafe<TKey, TElement>(
             this ConcurrentDictionary<TKey, TElement> source, object lockObj, TKey key,
-                    Func<TKey, TElement> valueFactory)
+                    Func<TKey, TElement> valueFactory) where TKey : notnull
         {
             if (!source.TryGetValue(key, out var value))
             {
@@ -251,7 +252,7 @@ namespace Source.DLaB.Common
         /// <param name="getDupKeyErrorMessage">Delegate function used to populate the message property of the exception
         /// generated when an element is added to the dictionary whose key already exists.</param>
         public static void Add<TKey, TValue>(this Dictionary<TKey, TValue> source, TKey key, TValue value,
-            Func<string> getDupKeyErrorMessage)
+            Func<string> getDupKeyErrorMessage) where TKey : notnull
         {
             try
             {
@@ -282,7 +283,7 @@ namespace Source.DLaB.Common
         /// <param name="keySelector">The key selector.</param>
         /// <returns></returns>
         public static Dictionary<TKey, List<TSource>> ToDictionaryList<TSource, TKey>(
-            this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
+            this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) where TKey : notnull
         {
             return source.ToDictionaryList(keySelector, Instance<TSource>());
         }
@@ -298,7 +299,7 @@ namespace Source.DLaB.Common
         /// <param name="elementSelector">The element selector.</param>
         /// <returns></returns>
         public static Dictionary<TKey, List<TElement>> ToDictionaryList<TSource, TKey, TElement>(
-            this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector)
+            this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) where TKey : notnull
         {
             var dictionary = new Dictionary<TKey, List<TElement>>();
             foreach (var local in source)
@@ -322,9 +323,9 @@ namespace Source.DLaB.Common
         /// <param name="source"></param>
         /// <param name="key">The Key to look for</param>
         /// <returns></returns>
-        public static TValue GetValue<TKey, TValue>(this Dictionary<TKey, TValue> source, TKey key)
+        public static TValue? GetValue<TKey, TValue>(this Dictionary<TKey, TValue?> source, TKey key) where TKey : notnull
         {
-            return source.GetValue(key, default(TValue));
+            return source.GetValue(key, default);
         }
 
         /// <summary>
@@ -336,7 +337,7 @@ namespace Source.DLaB.Common
         /// <param name="key">The Key to look for</param>
         /// <param name="defaultValue">The default value to return</param>
         /// <returns></returns>
-        public static TValue GetValue<TKey, TValue>(this Dictionary<TKey, TValue> source, TKey key, TValue defaultValue)
+        public static TValue? GetValue<TKey, TValue>(this Dictionary<TKey, TValue?> source, TKey key, TValue defaultValue) where TKey : notnull
         {
             return source.TryGetValue(key, out var value) ? value : defaultValue;
         }
@@ -353,7 +354,7 @@ namespace Source.DLaB.Common
         /// <param name="dict"></param>
         /// <param name="key">The key value to lookup and add the value to the list of</param>
         /// <param name="value">Value to add to the list</param>
-        public static void AddOrAppend<TKey, TValue>(this Dictionary<TKey, HashSet<TValue>> dict, TKey key, TValue value)
+        public static void AddOrAppend<TKey, TValue>(this Dictionary<TKey, HashSet<TValue>> dict, TKey key, TValue value) where TKey : notnull
         {
             if (dict.TryGetValue(key, out var values))
             {
@@ -378,7 +379,7 @@ namespace Source.DLaB.Common
         /// <param name="dict"></param>
         /// <param name="key">The key value to lookup and add the value to the list of</param>
         /// <param name="value">Values to add to the list</param>
-        public static void AddOrAppend<TKey, TValue>(this Dictionary<TKey, HashSet<TValue>> dict, TKey key, params TValue[] value)
+        public static void AddOrAppend<TKey, TValue>(this Dictionary<TKey, HashSet<TValue>> dict, TKey key, params TValue[] value) where TKey : notnull
         {
             if (dict.TryGetValue(key, out var values))
             {
@@ -404,7 +405,7 @@ namespace Source.DLaB.Common
         /// <param name="dict"></param>
         /// <param name="key">The key value to lookup and add the value to the list of</param>
         /// <param name="value">Value to add to the list</param>
-        public static void AddOrAppend<TKey, TValue>(this Dictionary<TKey, List<TValue>> dict, TKey key, TValue value)
+        public static void AddOrAppend<TKey, TValue>(this Dictionary<TKey, List<TValue>> dict, TKey key, TValue value) where TKey : notnull
         {
             if (dict.TryGetValue(key, out var values))
             {
@@ -426,7 +427,7 @@ namespace Source.DLaB.Common
         /// <param name="dict"></param>
         /// <param name="key">The key value to lookup and add the value to the list of</param>
         /// <param name="value">Values to add to the list</param>
-        public static void AddOrAppend<TKey, TValue>(this Dictionary<TKey, List<TValue>> dict, TKey key, params TValue[] value)
+        public static void AddOrAppend<TKey, TValue>(this Dictionary<TKey, List<TValue>> dict, TKey key, params TValue[] value) where TKey : notnull
         {
             if (dict.TryGetValue(key, out var values))
             {
@@ -752,7 +753,7 @@ namespace Source.DLaB.Common
         public static string Serialize(this IExtensibleDataObject obj, bool indent = false)
         {
             var serializer = new NetDataContractSerializer();
-            StringWriter sr = null;
+            StringWriter? sr = null;
             try
             {
                 sr = new StringWriter(CultureInfo.InvariantCulture);
@@ -774,7 +775,7 @@ namespace Source.DLaB.Common
             }
         }
 #endif
-        #endregion IExtensibleDataObject
+#endregion IExtensibleDataObject
 
         #region KeyValueConfigurationCollection
 
@@ -899,7 +900,7 @@ namespace Source.DLaB.Common
         /// <param name="encoding">The encoding.  Defaults to Encoding.UTF8.</param>
         /// <returns></returns>
         /// <exception cref="System.ArgumentNullException">text</exception>
-        public static T DeserializeJson<T>(this string text, DataContractJsonSerializerSettings settings = null, Encoding encoding = null)
+        public static T DeserializeJson<T>(this string text, DataContractJsonSerializerSettings? settings = null, Encoding? encoding = null)
         {
             if(text == null){
                 throw new ArgumentNullException(nameof(text));
@@ -907,10 +908,10 @@ namespace Source.DLaB.Common
 
             encoding = encoding ?? DLaBConfig.Config.GetEncoding(EncodingUses.Json, text);
             settings = settings ?? DLaBConfig.Config.GetJsonSerializerSettings(text, encoding);
-            using(var reader = new MemoryStream(encoding.GetBytes(text)))
+            using (var reader = new MemoryStream(encoding.GetBytes(text)))
             {
                 var serializer = new DataContractJsonSerializer(typeof(T), settings);
-                return (T)serializer.ReadObject(reader);
+                return (T)serializer.ReadObject(reader)!;
             }
         }
 
@@ -946,7 +947,7 @@ namespace Source.DLaB.Common
         /// <param name="text">The text.</param>
         /// <param name="encoding">Default to UTF8</param>
         /// <returns></returns>
-        public static string FromBase64(this string text, Encoding encoding = null)
+        public static string? FromBase64(this string? text, Encoding? encoding = null)
         {
             if (text == null)
             {
@@ -1002,7 +1003,7 @@ namespace Source.DLaB.Common
                 }
                 else
                 {
-                    value = (T)parse.Invoke(null, new object[] { strValue });
+                    value = (T)(parse.Invoke(null, new object[] { strValue }) ?? throw new Exception("Invoking Parse returned a null"));
                 }
             }
             catch (Exception ex)
@@ -1127,21 +1128,21 @@ namespace Source.DLaB.Common
         #region SubstringByString
 
         /// <summary>
-        /// Returns a the substring after the index of the first occurence of the startString.
+        /// Returns the substring after the index of the first occurence of the startString.
         /// Example: "012345678910".SubstringByString("2"); returns "345678910"
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="startString">The string that marks the start of the substring to be returned.</param>
         /// <param name="comparison">The comparison method for finding the index of the endString.</param>
         /// <returns></returns>
-        public static string SubstringByString(this string value, string startString, StringComparison comparison = StringComparison.Ordinal)
+        public static string? SubstringByString(this string value, string startString, StringComparison comparison = StringComparison.Ordinal)
         {
             var start = value.IndexOf(startString, comparison);
             return start < 0 ? null : value.Substring(start + startString.Length);
         }
 
         /// <summary>
-        /// Returns a the substring after the index of the first occurence of the startString and ending before the first instance of the end string.
+        /// Returns the substring after the index of the first occurence of the startString and ending before the first instance of the end string.
         /// Example: "012345678910".SubstringByString("2", "8"); returns "34567"
         /// </summary>
         /// <param name="value">The value.</param>
@@ -1149,13 +1150,13 @@ namespace Source.DLaB.Common
         /// <param name="endString">The string that marks the end of the substring to be returned.</param>
         /// <param name="comparison">The comparison method for finding the index of the endString.</param>
         /// <returns></returns>
-        public static string SubstringByString(this string value, string startString, string endString, StringComparison comparison = StringComparison.Ordinal)
+        public static string? SubstringByString(this string value, string startString, string endString, StringComparison comparison = StringComparison.Ordinal)
         {
             return value.SubstringByString(startString, endString, out _, comparison);
         }
 
         /// <summary>
-        /// Returns a the substring after the index of the first occurence of the startString and ending before the first instance of the endString.
+        /// Returns the substring after the index of the first occurence of the startString and ending before the first instance of the endString.
         /// Example: "012345678910".SubstringByString("2", "8"); returns "34567"
         /// </summary>
         /// <param name="value">The value.</param>
@@ -1164,14 +1165,13 @@ namespace Source.DLaB.Common
         /// <param name="endIndex">The end index of the endString.  Returns -1 if endString is not found.</param>
         /// <param name="comparison">The comparison method for finding the index of the endString.</param>
         /// <returns></returns>
-        public static string SubstringByString(this string value, string startString, string endString, out int endIndex, StringComparison comparison = StringComparison.Ordinal)
+        public static string? SubstringByString(this string value, string startString, string endString, out int endIndex, StringComparison comparison = StringComparison.Ordinal)
         {
             var start = value.IndexOf(startString, comparison);
-            string result;
+            string? result = null;
             if (start < 0)
             {
                 endIndex = -1;
-                result = null;
             }
             else
             {
@@ -1181,7 +1181,7 @@ namespace Source.DLaB.Common
         }
 
         /// <summary>
-        /// Returns a the substring starting with the index of the startIndex and ending before the first instance of the end string.
+        /// Returns the substring starting with the index of the startIndex and ending before the first instance of the end string.
         /// Example: "012345678910".SubstringByString("2", "8"); returns "34567"
         /// </summary>
         /// <param name="value">The value.</param>
@@ -1189,13 +1189,13 @@ namespace Source.DLaB.Common
         /// <param name="endString">The string that marks the end of the substring to be returned.</param>
         /// <param name="comparison">The comparison method for finding the index of the endString.</param>
         /// <returns></returns>
-        public static string SubstringByString(this string value, int startIndex, string endString, StringComparison comparison = StringComparison.Ordinal)
+        public static string? SubstringByString(this string value, int startIndex, string endString, StringComparison comparison = StringComparison.Ordinal)
         {
             return value.SubstringByString(startIndex, endString, out _, comparison);
         }
 
         /// <summary>
-        /// Returns a the substring starting with the index of the startIndex and ending before the first instance of the end string.
+        /// Returns the substring starting with the index of the startIndex and ending before the first instance of the end string.
         /// Example: "012345678910".SubstringByString("2", "8"); returns "34567"
         /// </summary>
         /// <param name="value">The value.</param>
@@ -1204,14 +1204,13 @@ namespace Source.DLaB.Common
         /// <param name="endIndex">The end index of the endString.  Returns -1 if endString is not found.</param>
         /// <param name="comparison">The comparison method for finding the index of the endString.</param>
         /// <returns></returns>
-        public static string SubstringByString(this string value, int startIndex, string endString, out int endIndex, StringComparison comparison = StringComparison.Ordinal)
+        public static string? SubstringByString(this string value, int startIndex, string endString, out int endIndex, StringComparison comparison = StringComparison.Ordinal)
         {
             var end = value.IndexOf(endString, startIndex, comparison);
-            string result;
+            string? result = null;
             if (end < 0)
             {
                 endIndex = -1;
-                result = null;
             }
             else
             {
@@ -1248,7 +1247,7 @@ namespace Source.DLaB.Common
                 }
                 if (!string.IsNullOrEmpty(sub) || splitOptions != StringSplitOptions.RemoveEmptyEntries)
                 {
-                    results.Add(sub);
+                    results.Add(sub!);
                 }
                 value = value.Substring(index);
             }
@@ -1282,7 +1281,7 @@ namespace Source.DLaB.Common
         /// <param name="encoding">Default to UTF8</param>
         /// <param name="includePreamble">if set to <c>true</c> [include preamble] else don't.</param>
         /// <returns></returns>
-        public static string ToBase64(this string text, Encoding encoding = null, bool includePreamble = false)
+        public static string? ToBase64(this string? text, Encoding? encoding = null, bool? includePreamble = false)
         {
             if (text == null)
             {
@@ -1290,7 +1289,7 @@ namespace Source.DLaB.Common
             }
 
             encoding = encoding ?? DLaBConfig.Config.GetEncoding(EncodingUses.Base64, text);
-            if (includePreamble)
+            if (includePreamble == true)
             {
                 text = encoding.GetString(encoding.GetPreamble()) + text;
             }
@@ -1304,9 +1303,9 @@ namespace Source.DLaB.Common
         /// <param name="text">The text to be Zipped.</param>
         /// <param name="encoding">The Encoding to be used.  Defaults to ASCII</param>
         /// <returns></returns>
-        public static byte[] Zip(this string text, Encoding encoding = null)
+        public static byte[] Zip(this string text, Encoding? encoding = null)
         {
-            encoding = encoding ?? DLaBConfig.Config.GetEncoding(EncodingUses.Zip, text);
+            encoding ??= DLaBConfig.Config.GetEncoding(EncodingUses.Zip, text);
             return encoding.GetBytes(text).Zip();
         }
 
@@ -1350,7 +1349,7 @@ namespace Source.DLaB.Common
         /// <typeparam name="TAttribute"></typeparam>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static TAttribute GetClassAttribute<TAttribute>(this Type type)
+        public static TAttribute? GetClassAttribute<TAttribute>(this Type type)
             where TAttribute : Attribute
         {
             return type.GetCustomAttributes(typeof(TAttribute), true).FirstOrDefault() as TAttribute;
@@ -1363,10 +1362,10 @@ namespace Source.DLaB.Common
         /// <param name="assembly">The Assembly to search, defaults to the Assembly of the given type.</param>
         /// <param name="forceIsPublic">If true only searches public Types.</param>
         /// <returns></returns>
-        public static Type GetFirstImplementation(this Type interfaceType, Assembly assembly = null, bool forceIsPublic = true)
+        public static Type? GetFirstImplementation(this Type interfaceType, Assembly? assembly = null, bool? forceIsPublic = true)
         {
             return (assembly ?? interfaceType.Assembly).ExportedTypes.FirstOrDefault(t => t.IsClass
-                                                                                          && (!forceIsPublic || t.IsPublic)
+                                                                                          && (!(forceIsPublic ?? true) || t.IsPublic)
                                                                                           && interfaceType.IsAssignableFrom(t));
         }
 
@@ -1384,7 +1383,7 @@ namespace Source.DLaB.Common
         /// <param name="formatJson">Formats the outputted JSON</param>
         /// <returns></returns>
         /// <exception cref="System.ArgumentNullException">text</exception>
-        public static string SerializeToJson<T>(this T value, DataContractJsonSerializerSettings settings = null, Encoding encoding = null, bool formatJson = false)
+        public static string SerializeToJson<T>(this T value, DataContractJsonSerializerSettings? settings = null, Encoding? encoding = null, bool? formatJson = false)
         {
             if (value == null)
             {
@@ -1396,7 +1395,7 @@ namespace Source.DLaB.Common
 
             using (var memoryStream = new MemoryStream())
             {
-                if (formatJson)
+                if (formatJson == true)
                 {
                     using (var writer = JsonReaderWriterFactory.CreateJsonWriter(memoryStream, encoding, true, true, "  "))
                     {

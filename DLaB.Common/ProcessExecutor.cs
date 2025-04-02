@@ -68,7 +68,7 @@ namespace Source.DLaB.Common
             return commandOutput.ToString();
         }
 
-        private static void HandleDataReceived(DataReceivedEventArgs e, ProcessExecutorInfo info, StringBuilder sb, object sbLock)
+        private static void HandleDataReceived(DataReceivedEventArgs? e, ProcessExecutorInfo info, StringBuilder sb, object sbLock)
         {
             lock (sbLock)
             {
