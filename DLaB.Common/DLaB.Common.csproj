@@ -12,8 +12,8 @@
 	<PropertyGroup>
 		<AssemblyOriginatorKeyFile>DLaB.Common.snk</AssemblyOriginatorKeyFile>
 		<Title>DLaB.Common</Title>
-		<FileVersion>1.6.0.0</FileVersion>
-		<Version>1.6.0.0</Version>
+		<FileVersion>1.6.0.1</FileVersion>
+		<Version>1.6.0.1</Version>
 		<SignAssembly>true</SignAssembly>
 		<LangVersion>9</LangVersion>
 		<Nullable>enable</Nullable>
