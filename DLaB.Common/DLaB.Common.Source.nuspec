@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>DLaB.Common.Source</id>
-    <version>1.6.0.1</version>
+    <version>1.6.0.2</version>
     <authors>Daryl LaBar</authors>
     <owners>Daryl LaBar</owners>
     <license type="expression">MIT</license>
@@ -32,16 +32,16 @@
   </metadata>
   <files>
     <file src="DLaB_Dynamics_64x64.png" target="images\" />
-    <file src="*.cs"                target="contentFiles\cs\net462\App_Packages\DLaB.Common.Source.1.6.0.1" />
-    <file src="Exceptions\*.cs"     target="contentFiles\cs\net462\App_Packages\DLaB.Common.Source.1.6.0.1\Exceptions" />
+    <file src="*.cs"                target="contentFiles\cs\net462\App_Packages\DLaB.Common.Source.1.6.0.2" />
+    <file src="Exceptions\*.cs"     target="contentFiles\cs\net462\App_Packages\DLaB.Common.Source.1.6.0.2\Exceptions" />
 
-    <file src="*.cs"                target="contentFiles\cs\net472\App_Packages\DLaB.Common.Source.1.6.0.1" />
-    <file src="Exceptions\*.cs"     target="contentFiles\cs\net472\App_Packages\DLaB.Common.Source.1.6.0.1\Exceptions" />
+    <file src="*.cs"                target="contentFiles\cs\net472\App_Packages\DLaB.Common.Source.1.6.0.2" />
+    <file src="Exceptions\*.cs"     target="contentFiles\cs\net472\App_Packages\DLaB.Common.Source.1.6.0.2\Exceptions" />
 
-    <file src="*.cs"                target="contentFiles\cs\net48\App_Packages\DLaB.Common.Source.1.6.0.1" />
-    <file src="Exceptions\*.cs"     target="contentFiles\cs\net48\App_Packages\DLaB.Common.Source.1.6.0.1\Exceptions" />
+    <file src="*.cs"                target="contentFiles\cs\net48\App_Packages\DLaB.Common.Source.1.6.0.2" />
+    <file src="Exceptions\*.cs"     target="contentFiles\cs\net48\App_Packages\DLaB.Common.Source.1.6.0.2\Exceptions" />
 		
-    <file src="*.cs"                target="contentFiles\cs\net6.0\App_Packages\DLaB.Common.Source.1.6.0.1" />
-    <file src="Exceptions\*.cs"     target="contentFiles\cs\net6.0\App_Packages\DLaB.Common.Source.1.6.0.1\Exceptions" />
+    <file src="*.cs"                target="contentFiles\cs\net6.0\App_Packages\DLaB.Common.Source.1.6.0.2" />
+    <file src="Exceptions\*.cs"     target="contentFiles\cs\net6.0\App_Packages\DLaB.Common.Source.1.6.0.2\Exceptions" />
   </files>
 </package>

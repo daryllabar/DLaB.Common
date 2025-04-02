@@ -101,7 +101,7 @@ namespace Source.DLaB.Common.Exceptions
         /// <param name="undefinedEnumValue">The undefined enum value.</param>
         /// <param name="message">The message.</param>
         /// <returns></returns>
-        protected static string? GetMessage(int undefinedEnumValue, string? message = null)
+        protected static string GetMessage(int undefinedEnumValue, string? message = null)
         {
             var enumType = typeof(TEnum);
             if (!IsEnum(enumType, ref message)) { return message!; }
