@@ -11,7 +11,9 @@ namespace Source.DLaB.Common.Exceptions
     /// Exception thrown to indicate that an inappropriate type argument was used for
     /// a type parameter to a generic type or method.
     /// </summary>
+#if !NET
     [Serializable]
+#endif
     public class TypeArgumentException : Exception
     {
         /// <summary>
@@ -60,7 +62,7 @@ namespace Source.DLaB.Common.Exceptions
             : base(string.Format(messageFormat, args), inner)
         {
         }
-
+#if !NET
         /// <summary>
         /// Constructor provided for serialization purposes.
         /// </summary>
@@ -70,5 +72,6 @@ namespace Source.DLaB.Common.Exceptions
             : base(info, context)
         {
         }
+#endif
     }
 }

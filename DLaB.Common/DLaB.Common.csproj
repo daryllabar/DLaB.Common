@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-	  <TargetFrameworks>net462;net472;net48;net6.0</TargetFrameworks>
+	  <TargetFrameworks>net462;net472;net48;net8.0</TargetFrameworks>
     <OutputType>Library</OutputType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -12,10 +12,10 @@
 	<PropertyGroup>
 		<AssemblyOriginatorKeyFile>DLaB.Common.snk</AssemblyOriginatorKeyFile>
 		<Title>DLaB.Common</Title>
-		<FileVersion>1.6.0.2</FileVersion>
-		<Version>1.6.0.2</Version>
+		<FileVersion>1.6.0.3</FileVersion>
+		<Version>1.6.0.3</Version>
 		<SignAssembly>true</SignAssembly>
-		<LangVersion>9</LangVersion>
+		<LangVersion>12</LangVersion>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>	
   <ItemGroup>
@@ -29,7 +29,7 @@
 	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
 	  <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
 	</ItemGroup>
-	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'net6.0'">
+	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'net8.0'">
 		<PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
 	</ItemGroup>
 </Project>

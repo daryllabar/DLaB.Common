@@ -10,7 +10,9 @@ namespace Source.DLaB.Common.Exceptions
     /// The exception that is thrown when an attempt is made to add a duplicate key to a dictionary.
     /// It's primary purpose is to provide a better error message than ArgumentException, An item with the smae key has already been added.
     /// </summary>
+#if !NET
     [Serializable]
+#endif
     public class DictionaryDuplicateKeyException : Exception
     {
         /// <summary>
@@ -28,7 +30,7 @@ namespace Source.DLaB.Common.Exceptions
         /// <param name="message">The message.</param>
         /// <param name="inner">The inner.</param>
         public DictionaryDuplicateKeyException(string message, Exception inner) : base(message, inner) { }
-
+#if !NET
         /// <summary>
         /// Initializes a new instance of the <see cref="DictionaryDuplicateKeyException"/> class.
         /// </summary>
@@ -40,7 +42,6 @@ namespace Source.DLaB.Common.Exceptions
         /// </remarks>
         protected DictionaryDuplicateKeyException(System.Runtime.Serialization.SerializationInfo info,
             System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
-
-
+#endif
     }
 }
