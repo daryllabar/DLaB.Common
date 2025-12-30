@@ -47,7 +47,7 @@ namespace Source.DLaB.Common
         /// </summary>
         public ConfigValuesSplitInfo()
         {
-            EntrySeparators = new[] { EntrySeparator };
+            EntrySeparators = [EntrySeparator];
             ConvertValuesToLower = false;
         }
 
@@ -77,10 +77,27 @@ namespace Source.DLaB.Common
         {
             if (string.IsNullOrWhiteSpace(value))
             {
-                return new List<T?>();
+                return [];
             }
             info = info ?? ConfigValuesSplitInfo.Default;
-            return new List<T?>(value.Split(info.EntrySeparators, StringSplitOptions.RemoveEmptyEntries).Select(v => info.ParseValue<T>(v)));
+            return [..value.Split(info.EntrySeparators, StringSplitOptions.RemoveEmptyEntries).Select(v => info.ParseValue<T>(v))];
+        }
+
+        /// <summary>
+        /// Parses a string into a List of the given type, non-null.  Defaults to | as the separator
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static List<T> GetRequiredList<T>(this string value, ConfigValuesSplitInfo? info = null)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return [];
+            }
+            info = info ?? ConfigValuesSplitInfo.Default;
+            return [.. value.Split(info.EntrySeparators, StringSplitOptions.RemoveEmptyEntries).Select(v => info.ParseValue<T>(v) ?? throw new Exception("Null value encountered!"))];
         }
 
         /// <summary>
@@ -106,6 +123,28 @@ namespace Source.DLaB.Common
         }
 
         /// <summary>
+        /// Parses a string into a Dictionary of the given type with required values.  Defaults to | as the separator and : as the key value separator
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="config"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static Dictionary<TKey, TValue> GetRequiredDictionary<TKey, TValue>(this string config, ConfigKeyValueSplitInfo? info = null) where TKey : notnull
+        {
+            if (string.IsNullOrWhiteSpace(config))
+            {
+                return new Dictionary<TKey, TValue>();
+            }
+            info ??= ConfigKeyValueSplitInfo.Default;
+
+            return config.Split(info.EntrySeparators, StringSplitOptions.RemoveEmptyEntries).
+                Select(entry => entry.Split(info.KeyValueSeperators, StringSplitOptions.RemoveEmptyEntries)).
+                ToDictionary(values => info.ParseKey<TKey>(values[0])!,
+                    values => info.ParseValue<TValue>(values.Length > 1 ? values[1] : null) ?? throw new Exception("Null value found for required Dictionary for key: " + info.ParseKey<TKey>(values[0])));
+        }
+
+        /// <summary>
         /// Parses a string into a Dictionary of the given type.  Defaults to | as the separator and : as the key value separator and , as the value separator
         /// </summary>
         /// <typeparam name="TKey"></typeparam>
@@ -113,21 +152,50 @@ namespace Source.DLaB.Common
         /// <param name="config"></param>
         /// <param name="info"></param>
         /// <returns></returns>
-        public static Dictionary<TKey, List<TValue>> GetDictionaryList<TKey, TValue>(this string config, ConfigKeyValuesSplitInfo? info = null) where TKey : notnull
+        public static Dictionary<TKey, List<TValue?>> GetDictionaryList<TKey, TValue>(this string config, ConfigKeyValuesSplitInfo? info = null) where TKey : notnull
+        {
+            if (string.IsNullOrWhiteSpace(config))
+            {
+                return new Dictionary<TKey, List<TValue?>>();
+            }
+
+            info = info ?? ConfigKeyValuesSplitInfo.Default;
+            var dict = new Dictionary<TKey, List<TValue?>>();
+            foreach (var entry in config.Split(info.EntrySeparators, StringSplitOptions.RemoveEmptyEntries))
+            {
+                var entryValues = entry.Split(info.KeyValueSeperators, StringSplitOptions.RemoveEmptyEntries);
+                var value = entryValues.Length > 1
+                    ? entryValues[1].Split(info.EntryValuesSeparators, StringSplitOptions.RemoveEmptyEntries).Select(v => info.ParseValue<TValue>(v)).ToList()
+                    : [];
+                dict.Add(info.ParseKey<TKey>(entryValues[0])!, value);
+            }
+
+            return dict;
+        }
+
+        /// <summary>
+        /// Parses a string into a Dictionary of the given type, non-null.  Defaults to | as the separator and : as the key value separator and , as the value separator
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="config"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static Dictionary<TKey, List<TValue>> GetRequiredDictionaryList<TKey, TValue>(this string config, ConfigKeyValuesSplitInfo? info = null) where TKey : notnull
         {
             if (string.IsNullOrWhiteSpace(config))
             {
                 return new Dictionary<TKey, List<TValue>>();
             }
 
-            info = info ?? ConfigKeyValuesSplitInfo.Default;
+            info ??= ConfigKeyValuesSplitInfo.Default;
             var dict = new Dictionary<TKey, List<TValue>>();
             foreach (var entry in config.Split(info.EntrySeparators, StringSplitOptions.RemoveEmptyEntries))
             {
                 var entryValues = entry.Split(info.KeyValueSeperators, StringSplitOptions.RemoveEmptyEntries);
                 var value = entryValues.Length > 1
-                    ? entryValues[1].Split(info.EntryValuesSeparators, StringSplitOptions.RemoveEmptyEntries).Select(v => info.ParseValue<TValue>(v)!).ToList()
-                    : new List<TValue>();
+                    ? entryValues[1].Split(info.EntryValuesSeparators, StringSplitOptions.RemoveEmptyEntries).Select(v => info.ParseValue<TValue>(v) ?? throw new Exception("Null value encountered for key: " + entryValues[0])).ToList()
+                    : [];
                 dict.Add(info.ParseKey<TKey>(entryValues[0])!, value);
             }
 
@@ -142,7 +210,37 @@ namespace Source.DLaB.Common
         /// <param name="config"></param>
         /// <param name="info"></param>
         /// <returns></returns>
-        public static Dictionary<TKey, HashSet<TValue>> GetDictionaryHash<TKey, TValue>(this string config, ConfigKeyValuesSplitInfo? info = null) where TKey : notnull
+        public static Dictionary<TKey, HashSet<TValue?>> GetDictionaryHash<TKey, TValue>(this string config, ConfigKeyValuesSplitInfo? info = null) where TKey : notnull
+        {
+            if (string.IsNullOrWhiteSpace(config))
+            {
+                return new Dictionary<TKey, HashSet<TValue?>>();
+            }
+
+            info = info ?? ConfigKeyValuesSplitInfo.Default;
+            var dict = new Dictionary<TKey, HashSet<TValue?>>();
+            foreach (var entry in config.Split(info.EntrySeparators, StringSplitOptions.RemoveEmptyEntries))
+            {
+                var entryValues = entry.Split(info.KeyValueSeperators, StringSplitOptions.RemoveEmptyEntries);
+                var key = info.ParseKey<TKey>(entryValues[0]);
+                var value = entryValues.Length > 1
+                    ? new HashSet<TValue?>(entryValues[1].Split(info.EntryValuesSeparators, StringSplitOptions.RemoveEmptyEntries).Select(v => info.ParseValue<TValue>(v) ?? throw new Exception("Null value encountered for key: " + key)))
+                    : new HashSet<TValue?>();
+                dict.Add(key!, value);
+            }
+
+            return dict;
+        }
+
+        /// <summary>
+        /// Parses a string into a Dictionary of the given type.  Defaults to | as the separator and : as the key value separator and , as the value separator
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="config"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static Dictionary<TKey, HashSet<TValue>> GetRequiredDictionaryHash<TKey, TValue>(this string config, ConfigKeyValuesSplitInfo? info = null) where TKey : notnull
         {
             if (string.IsNullOrWhiteSpace(config))
             {
@@ -174,13 +272,33 @@ namespace Source.DLaB.Common
         {
             if (string.IsNullOrWhiteSpace(value))
             {
-                return new HashSet<T?>();
+                return [];
             }
             info ??= new ConfigValuesSplitInfo
             {
                 ConvertValuesToLower = true
             };
-            return new HashSet<T?>(value.Split(info.EntrySeparators).Select(v => info.ParseValue<T>(v)));
+            return [..value.Split(info.EntrySeparators).Select(v => info.ParseValue<T>(v))];
+        }
+
+        /// <summary>
+        /// Parses a string into a HashSet of the given type, non-null.  Defaults to | as the separator.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static HashSet<T> GetRequiredHashSet<T>(this string value, ConfigValuesSplitInfo? info = null)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return [];
+            }
+            info ??= new ConfigValuesSplitInfo
+            {
+                ConvertValuesToLower = true
+            };
+            return [..value.Split(info.EntrySeparators).Select(v => info.ParseValue<T>(v) ?? throw new Exception("Null value encountered!"))];
         }
     }
 }
