@@ -179,12 +179,12 @@ namespace Source.DLaB.Common
         /// <param name="defaultValue"></param>
         /// <param name="info"></param>
         /// <returns></returns>
-        public static List<T> GetList<T>(string appSetting, List<T> defaultValue, ConfigValuesSplitInfo? info = null)
+        public static List<T?> GetList<T>(string appSetting, List<T?> defaultValue, ConfigValuesSplitInfo? info = null)
         {
             try
             {
                 var config = ConfigProvider.Instance[appSetting];
-                return config == null ? defaultValue : config.GetRequiredList<T>(info);
+                return config == null ? defaultValue : config.GetList<T>(info);
             }
             catch (Exception ex)
             {
@@ -201,12 +201,12 @@ namespace Source.DLaB.Common
         /// <param name="defaultValue"></param>
         /// <param name="info"></param>
         /// <returns></returns>
-        public static List<T> GetList<T>(string appSetting, string defaultValue, ConfigValuesSplitInfo? info = null)
+        public static List<T?> GetList<T>(string appSetting, string defaultValue, ConfigValuesSplitInfo? info = null)
         {
             try
             {
                 var config = ConfigProvider.Instance[appSetting] ?? defaultValue;
-                return config.GetRequiredList<T>(info);
+                return config.GetList<T>(info);
             }
             catch (Exception ex)
             {
@@ -223,12 +223,12 @@ namespace Source.DLaB.Common
         /// <param name="getDefaultValue"></param>
         /// <param name="info"></param>
         /// <returns></returns>
-        public static List<T> GetList<T>(string appSetting, Func<List<T>> getDefaultValue, ConfigValuesSplitInfo? info = null)
+        public static List<T?> GetList<T>(string appSetting, Func<List<T?>> getDefaultValue, ConfigValuesSplitInfo? info = null)
         {
             try
             {
                 var config = ConfigProvider.Instance[appSetting];
-                return config == null ? getDefaultValue() : config.GetRequiredList<T>(info);
+                return config == null ? getDefaultValue() : config.GetList<T>(info);
             }
             catch (Exception ex)
             {
@@ -253,14 +253,14 @@ namespace Source.DLaB.Common
         /// <param name="getDefault">Function to get the default value.</param>
         /// <param name="info">The settings by which to split the config value.</param>
         /// <returns></returns>
-        public static Dictionary<TKey, TValue> GetDictionary<TKey, TValue>(string appSetting,
-                                                                           Func<Dictionary<TKey, TValue>> getDefault,
+        public static Dictionary<TKey, TValue?> GetDictionary<TKey, TValue>(string appSetting,
+                                                                           Func<Dictionary<TKey, TValue?>> getDefault,
                                                                            ConfigKeyValueSplitInfo? info = null) where TKey : notnull
         {
             try
             {
                 var config = ConfigProvider.Instance[appSetting];
-                return config == null ? getDefault() : config.GetRequiredDictionary<TKey, TValue>(info);
+                return config == null ? getDefault() : config.GetDictionary<TKey, TValue>(info);
             }
             catch (Exception ex)
             {
@@ -281,14 +281,14 @@ namespace Source.DLaB.Common
         /// <param name="defaultValue">The default value.</param>
         /// <param name="info">The settings by which to split the config value.</param>
         /// <returns></returns>
-        public static Dictionary<TKey, TValue> GetDictionary<TKey, TValue>(string appSetting, 
-                                                                           Dictionary<TKey, TValue> defaultValue,
+        public static Dictionary<TKey, TValue?> GetDictionary<TKey, TValue>(string appSetting, 
+                                                                           Dictionary<TKey, TValue?> defaultValue,
                                                                            ConfigKeyValueSplitInfo? info = null) where TKey : notnull
         {
             try
             {
                 var config = ConfigProvider.Instance[appSetting];
-                return config == null ? defaultValue : config.GetRequiredDictionary<TKey, TValue>(info);
+                return config == null ? defaultValue : config.GetDictionary<TKey, TValue>(info);
             }
             catch (Exception ex)
             {
@@ -309,14 +309,14 @@ namespace Source.DLaB.Common
         /// <param name="defaultValue">The default value.</param>
         /// <param name="info">The settings by which to split the config value.</param>
         /// <returns></returns>
-        public static Dictionary<TKey, TValue> GetDictionary<TKey, TValue>(string appSetting,
+        public static Dictionary<TKey, TValue?> GetDictionary<TKey, TValue>(string appSetting,
                                                                            string defaultValue,
                                                                            ConfigKeyValueSplitInfo? info = null) where TKey : notnull
         {
             try
             {
                 var config = ConfigProvider.Instance[appSetting] ?? defaultValue;
-                return config.GetRequiredDictionary<TKey, TValue>(info);
+                return config.GetDictionary<TKey, TValue>(info);
             }
             catch (Exception ex)
             {
@@ -341,14 +341,14 @@ namespace Source.DLaB.Common
         /// <param name="defaultValue">The default value.</param>
         /// <param name="info">The settings by which to split the config value.</param>
         /// <returns></returns>
-        public static Dictionary<TKey, List<TValue>> GetDictionaryList<TKey, TValue>(string appSetting,
-                                                                                     Dictionary<TKey, List<TValue>> defaultValue,
+        public static Dictionary<TKey, List<TValue?>> GetDictionaryList<TKey, TValue>(string appSetting,
+                                                                                     Dictionary<TKey, List<TValue?>> defaultValue,
                                                                                      ConfigKeyValuesSplitInfo? info = null) where TKey : notnull
         {
             try
             {
                 var config = ConfigProvider.Instance[appSetting];
-                return config == null ? defaultValue : config.GetRequiredDictionaryList<TKey, TValue>(info);
+                return config == null ? defaultValue : config.GetDictionaryList<TKey, TValue>(info);
             }
             catch (Exception ex)
             {
@@ -369,14 +369,14 @@ namespace Source.DLaB.Common
         /// <param name="defaultValue">The default value.</param>
         /// <param name="info">The settings by which to split the config value.</param>
         /// <returns></returns>
-        public static Dictionary<TKey, List<TValue>> GetDictionaryList<TKey, TValue>(string appSetting,
+        public static Dictionary<TKey, List<TValue?>> GetDictionaryList<TKey, TValue>(string appSetting,
                                                                                      string defaultValue,
                                                                                      ConfigKeyValuesSplitInfo? info = null) where TKey : notnull
         {
             try
             {
                 var config = ConfigProvider.Instance[appSetting] ?? defaultValue;
-                return config.GetRequiredDictionaryList<TKey, TValue>(info);
+                return config.GetDictionaryList<TKey, TValue>(info);
             }
             catch (Exception ex)
             {
@@ -397,14 +397,14 @@ namespace Source.DLaB.Common
         /// <param name="getDefault">Function to get the default value.</param>
         /// <param name="info">The settings by which to split the config value.</param>
         /// <returns></returns>
-        public static Dictionary<TKey, List<TValue>> GetDictionaryList<TKey, TValue>(string appSetting,
-                                                                                     Func<Dictionary<TKey, List<TValue>>> getDefault,
+        public static Dictionary<TKey, List<TValue?>> GetDictionaryList<TKey, TValue>(string appSetting,
+                                                                                     Func<Dictionary<TKey, List<TValue?>>> getDefault,
                                                                                      ConfigKeyValuesSplitInfo? info = null) where TKey : notnull
         {
             try
             {
                 var config = ConfigProvider.Instance[appSetting];
-                return config == null ? getDefault() : config.GetRequiredDictionaryList<TKey, TValue>(info);
+                return config == null ? getDefault() : config.GetDictionaryList<TKey, TValue>(info);
             }
             catch (Exception ex)
             {
@@ -429,14 +429,14 @@ namespace Source.DLaB.Common
         /// <param name="defaultValue">The default value.</param>
         /// <param name="info">The settings by which to split the config value.</param>
         /// <returns></returns>
-        public static Dictionary<TKey, HashSet<TValue>> GetDictionaryHash<TKey, TValue>(string appSetting,
-                                                                                     Dictionary<TKey, HashSet<TValue>> defaultValue,
+        public static Dictionary<TKey, HashSet<TValue?>> GetDictionaryHash<TKey, TValue>(string appSetting,
+                                                                                     Dictionary<TKey, HashSet<TValue?>> defaultValue,
                                                                                      ConfigKeyValuesSplitInfo? info = null) where TKey : notnull
         {
             try
             {
                 var config = ConfigProvider.Instance[appSetting];
-                return config == null ? defaultValue : config.GetRequiredDictionaryHash<TKey, TValue>(info);
+                return config == null ? defaultValue : config.GetDictionaryHash<TKey, TValue>(info);
             }
             catch (Exception ex)
             {
@@ -457,14 +457,14 @@ namespace Source.DLaB.Common
         /// <param name="defaultValue">The default value.</param>
         /// <param name="info">The settings by which to split the config value.</param>
         /// <returns></returns>
-        public static Dictionary<TKey, HashSet<TValue>> GetDictionaryHash<TKey, TValue>(string appSetting,
+        public static Dictionary<TKey, HashSet<TValue?>> GetDictionaryHash<TKey, TValue>(string appSetting,
                                                                                         string defaultValue,
                                                                                         ConfigKeyValuesSplitInfo? info = null) where TKey : notnull
         {
             try
             {
                 var config = ConfigProvider.Instance[appSetting] ?? defaultValue;
-                return config.GetRequiredDictionaryHash<TKey, TValue>(info);
+                return config.GetDictionaryHash<TKey, TValue>(info);
             }
             catch (Exception ex)
             {
@@ -485,14 +485,14 @@ namespace Source.DLaB.Common
         /// <param name="getDefault">Function to get the default value.</param>
         /// <param name="info">The settings by which to split the config value.</param>
         /// <returns></returns>
-        public static Dictionary<TKey, HashSet<TValue>> GetDictionaryHash<TKey, TValue>(string appSetting,
-                                                                                        Func<Dictionary<TKey, HashSet<TValue>>> getDefault,
+        public static Dictionary<TKey, HashSet<TValue?>> GetDictionaryHash<TKey, TValue>(string appSetting,
+                                                                                        Func<Dictionary<TKey, HashSet<TValue?>>> getDefault,
                                                                                         ConfigKeyValuesSplitInfo? info = null) where TKey : notnull
         {
             try
             {
                 var config = ConfigProvider.Instance[appSetting];
-                return config == null ? getDefault() : config.GetRequiredDictionaryHash<TKey, TValue>(info);
+                return config == null ? getDefault() : config.GetDictionaryHash<TKey, TValue>(info);
             }
             catch (Exception ex)
             {
@@ -513,12 +513,12 @@ namespace Source.DLaB.Common
         /// <param name="info">The information.</param>
         /// <returns></returns>
         /// <exception cref="System.FormatException"></exception>
-        public static HashSet<T> GetHashSet<T>(string appSetting, Func<HashSet<T>> getDefault, ConfigValuesSplitInfo? info = null)
+        public static HashSet<T?> GetHashSet<T>(string appSetting, Func<HashSet<T>> getDefault, ConfigValuesSplitInfo? info = null)
         {
             try
             {
                 var config = ConfigProvider.Instance[appSetting];
-                return config != null ? config.GetRequiredHashSet<T>(info) : getDefault();
+                return config != null ? config.GetHashSet<T>(info) : getDefault();
             }
             catch (Exception ex)
             {
@@ -534,12 +534,12 @@ namespace Source.DLaB.Common
         /// <param name="defaultValue"></param>
         /// <param name="info">The settings by which to split the config value.</param>
         /// <returns></returns>
-        public static HashSet<T> GetHashSet<T>(string appSetting, HashSet<T> defaultValue, ConfigValuesSplitInfo? info = null)
+        public static HashSet<T?> GetHashSet<T>(string appSetting, HashSet<T> defaultValue, ConfigValuesSplitInfo? info = null)
         {
             try
             {
                 var config = ConfigProvider.Instance[appSetting];
-                return config == null ? defaultValue : config.GetRequiredHashSet<T>(info);
+                return config == null ? defaultValue : config.GetHashSet<T>(info);
             }
             catch (Exception ex)
             {
@@ -555,12 +555,12 @@ namespace Source.DLaB.Common
         /// <param name="defaultValue"></param>
         /// <param name="info">The settings by which to split the config value.</param>
         /// <returns></returns>
-        public static HashSet<T> GetHashSet<T>(string appSetting, string defaultValue, ConfigValuesSplitInfo? info = null)
+        public static HashSet<T?> GetHashSet<T>(string appSetting, string defaultValue, ConfigValuesSplitInfo? info = null)
         {
             try
             {
                 var config = ConfigProvider.Instance[appSetting] ?? defaultValue;
-                return config.GetRequiredHashSet<T>(info);
+                return config.GetHashSet<T>(info);
             }
             catch (Exception ex)
             {
