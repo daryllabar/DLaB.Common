@@ -513,7 +513,7 @@ namespace Source.DLaB.Common
         /// <param name="info">The information.</param>
         /// <returns></returns>
         /// <exception cref="System.FormatException"></exception>
-        public static HashSet<T?> GetHashSet<T>(string appSetting, Func<HashSet<T>> getDefault, ConfigValuesSplitInfo? info = null)
+        public static HashSet<T?> GetHashSet<T>(string appSetting, Func<HashSet<T?>> getDefault, ConfigValuesSplitInfo? info = null)
         {
             try
             {
@@ -534,7 +534,7 @@ namespace Source.DLaB.Common
         /// <param name="defaultValue"></param>
         /// <param name="info">The settings by which to split the config value.</param>
         /// <returns></returns>
-        public static HashSet<T?> GetHashSet<T>(string appSetting, HashSet<T> defaultValue, ConfigValuesSplitInfo? info = null)
+        public static HashSet<T?> GetHashSet<T>(string appSetting, HashSet<T?> defaultValue, ConfigValuesSplitInfo? info = null)
         {
             try
             {
