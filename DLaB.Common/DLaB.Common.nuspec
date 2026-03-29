@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>DLaB.Common</id>
-    <version>1.6.0.5</version>
+    <version>1.6.0.12</version>
     <authors>Daryl LaBar</authors>
     <owners>Daryl LaBar</owners>
     <license type="expression">MIT</license>
@@ -18,6 +18,9 @@
 			<group targetFramework=".NETFramework4.7.2"/>
 			<group targetFramework=".NETFramework4.8"/>
 			<group targetFramework="NET8.0">
+				<dependency id="System.Configuration.ConfigurationManager" version="8.0" exclude="Build,Analyzers"  />
+			</group>
+			<group targetFramework="NET10.0">
 				<dependency id="System.Configuration.ConfigurationManager" version="8.0" exclude="Build,Analyzers"  />
 			</group>
 		</dependencies>		
@@ -40,6 +43,7 @@
 	  <file src="bin\Release\net472\DLaB.Common.dll" target="lib\net472\DLaB.Common.dll" />
 	  <file src="bin\Release\net48\DLaB.Common.dll"  target="lib\net48\DLaB.Common.dll" />
 	  <file src="bin\Release\net8.0\DLaB.Common.dll" target="lib\net8.0\DLaB.Common.dll" />
+	  <file src="bin\Release\net10.0\DLaB.Common.dll" target="lib\net10.0\DLaB.Common.dll" />
    
     <file src="DLaB_Dynamics_64x64.png" target="images\" />
   </files>

@@ -1,47 +1,42 @@
 <?xml version="1.0"?>
 <package >
-  <metadata>
-    <id>DLaB.Common.Source</id>
-    <version>1.6.0.5</version>
-    <authors>Daryl LaBar</authors>
-    <owners>Daryl LaBar</owners>
-    <license type="expression">MIT</license>
-    <projectUrl>https://github.com/daryllabar/DLaB.Common</projectUrl>
-    <icon>images\DLaB_Dynamics_64x64.png</icon>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Contains some basic extensions and a config helper</description>
-    <releaseNotes>Added Support for .Net SDK Projects</releaseNotes>
-    <copyright>Copyright 2016</copyright>
-    <tags>C# Common Utility Extensions</tags>
-    <frameworkAssemblies>
-	    <frameworkAssembly assemblyName="Microsoft.CSharp"             targetFramework="net462" />
-	    <frameworkAssembly assemblyName="System.Configuration"         targetFramework="net462" />
-	    <frameworkAssembly assemblyName="System.Runtime.Serialization" targetFramework="net462" />
+	<metadata>
+		<id>DLaB.Common.Source</id>
+		<version>1.6.0.12</version>
+		<authors>Daryl LaBar</authors>
+		<owners>Daryl LaBar</owners>
+		<license type="expression">MIT</license>
+		<projectUrl>https://github.com/daryllabar/DLaB.Common</projectUrl>
+		<icon>images\DLaB_Dynamics_64x64.png</icon>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Contains some basic extensions and a config helper</description>
+		<releaseNotes>Added Support for .Net SDK Projects</releaseNotes>
+		<copyright>Copyright 2016</copyright>
+		<tags>C# Common Utility Extensions</tags>
+		<frameworkAssemblies>
+			<frameworkAssembly assemblyName="Microsoft.CSharp"             targetFramework="net462" />
+			<frameworkAssembly assemblyName="System.Configuration"         targetFramework="net462" />
+			<frameworkAssembly assemblyName="System.Runtime.Serialization" targetFramework="net462" />
 
-	    <frameworkAssembly assemblyName="Microsoft.CSharp"             targetFramework="net472" />
-	    <frameworkAssembly assemblyName="System.Configuration"         targetFramework="net472" />
-	    <frameworkAssembly assemblyName="System.Runtime.Serialization" targetFramework="net472" />
+			<frameworkAssembly assemblyName="Microsoft.CSharp"             targetFramework="net472" />
+			<frameworkAssembly assemblyName="System.Configuration"         targetFramework="net472" />
+			<frameworkAssembly assemblyName="System.Runtime.Serialization" targetFramework="net472" />
 
-	    <frameworkAssembly assemblyName="Microsoft.CSharp"             targetFramework="net48" />
-	    <frameworkAssembly assemblyName="System.Configuration"         targetFramework="net48" />
-	    <frameworkAssembly assemblyName="System.Runtime.Serialization" targetFramework="net48" />
-    </frameworkAssemblies>
-    <contentFiles>
-      <files include="cs/netcoreapp/**/*.*" buildAction="Compile" />
-    </contentFiles>
-  </metadata>
-  <files>
-    <file src="DLaB_Dynamics_64x64.png" target="images\" />
-    <file src="*.cs"                target="contentFiles\cs\net462\App_Packages\DLaB.Common.Source.1.6.0.5" />
-    <file src="Exceptions\*.cs"     target="contentFiles\cs\net462\App_Packages\DLaB.Common.Source.1.6.0.5\Exceptions" />
-
-    <file src="*.cs"                target="contentFiles\cs\net472\App_Packages\DLaB.Common.Source.1.6.0.5" />
-    <file src="Exceptions\*.cs"     target="contentFiles\cs\net472\App_Packages\DLaB.Common.Source.1.6.0.5\Exceptions" />
-
-    <file src="*.cs"                target="contentFiles\cs\net48\App_Packages\DLaB.Common.Source.1.6.0.5" />
-    <file src="Exceptions\*.cs"     target="contentFiles\cs\net48\App_Packages\DLaB.Common.Source.1.6.0.5\Exceptions" />
-		
-    <file src="*.cs"                target="contentFiles\cs\net8.0\App_Packages\DLaB.Common.Source.1.6.0.5" />
-    <file src="Exceptions\*.cs"     target="contentFiles\cs\net8.0\App_Packages\DLaB.Common.Source.1.6.0.5\Exceptions" />
-  </files>
+			<frameworkAssembly assemblyName="Microsoft.CSharp"             targetFramework="net48" />
+			<frameworkAssembly assemblyName="System.Configuration"         targetFramework="net48" />
+			<frameworkAssembly assemblyName="System.Runtime.Serialization" targetFramework="net48" />
+		</frameworkAssemblies>
+		<contentFiles>
+			<files include="cs/any/**/*.cs" buildAction="Compile" />
+		</contentFiles>
+	</metadata>
+	<files>
+		<file src="DLaB_Dynamics_64x64.png" target="images\" />
+		<!-- For SDK-style projects (PackageReference) -->
+		<file src="*.cs"            target="contentFiles\cs\any\App_Packages\DLaB.Common.Source.1.6.0.12" />
+		<file src="Exceptions\*.cs" target="contentFiles\cs\any\App_Packages\DLaB.Common.Source.1.6.0.12\Exceptions" />
+		<!-- For packages.config projects (traditional .NET Framework) -->
+		<file src="*.cs"            target="content\App_Packages\DLaB.Common.Source.1.6.0.12" />
+		<file src="Exceptions\*.cs" target="content\App_Packages\DLaB.Common.Source.1.6.0.12\Exceptions" />
+	</files>
 </package>
