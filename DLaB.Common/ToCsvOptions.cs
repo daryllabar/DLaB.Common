@@ -1,4 +1,14 @@
-﻿namespace DLaB.Common
+﻿#if DLAB_UNROOT_COMMON_NAMESPACE
+using DLaB.Common.Exceptions;
+// ReSharper disable CanSimplifyDictionaryTryGetValueWithGetValueOrDefault
+
+namespace DLaB.Common
+#else
+
+using Source.DLaB.Common.Exceptions;
+
+namespace Source.DLaB.Common
+#endif
 {
 
     public class ToCsvOptions
