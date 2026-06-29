@@ -2,7 +2,7 @@
 <package >
 	<metadata>
 		<id>DLaB.Common.Source</id>
-		<version>1.6.0.12</version>
+		<version>1.6.0.13</version>
 		<authors>Daryl LaBar</authors>
 		<owners>Daryl LaBar</owners>
 		<license type="expression">MIT</license>
@@ -33,10 +33,10 @@
 	<files>
 		<file src="DLaB_Dynamics_64x64.png" target="images\" />
 		<!-- For SDK-style projects (PackageReference) -->
-		<file src="*.cs"            target="contentFiles\cs\any\App_Packages\DLaB.Common.Source.1.6.0.12" />
-		<file src="Exceptions\*.cs" target="contentFiles\cs\any\App_Packages\DLaB.Common.Source.1.6.0.12\Exceptions" />
+		<file src="*.cs"            target="contentFiles\cs\any\App_Packages\DLaB.Common.Source.1.6.0.13" />
+		<file src="Exceptions\*.cs" target="contentFiles\cs\any\App_Packages\DLaB.Common.Source.1.6.0.13\Exceptions" />
 		<!-- For packages.config projects (traditional .NET Framework) -->
-		<file src="*.cs"            target="content\App_Packages\DLaB.Common.Source.1.6.0.12" />
-		<file src="Exceptions\*.cs" target="content\App_Packages\DLaB.Common.Source.1.6.0.12\Exceptions" />
+		<file src="*.cs"            target="content\App_Packages\DLaB.Common.Source.1.6.0.13" />
+		<file src="Exceptions\*.cs" target="content\App_Packages\DLaB.Common.Source.1.6.0.13\Exceptions" />
 	</files>
 </package>
