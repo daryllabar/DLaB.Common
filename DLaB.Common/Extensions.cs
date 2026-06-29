@@ -514,10 +514,33 @@ namespace Source.DLaB.Common
         /// Joins the items in the list to create a csv using string.Join(", ", items)
         /// </summary>
         /// <param name="items">The items.</param>
+        /// <param name="options">The options.</param>
         /// <returns></returns>
-        public static string ToCsv(this IEnumerable<string> items)
+        public static string ToCsv(this IEnumerable<string?> items, ToCsvOptions? options = null)
         {
-            return string.Join(", ", items);
+            if (items == null) { throw new ArgumentNullException(nameof(items)); }
+
+            options ??= new ToCsvOptions();
+
+            var values = items;
+
+            if (options.SkipNullValues)
+            {
+                values = values.Where(i => i != null);
+            }
+
+            if (options.SkipEmptyStrings)
+            {
+                values = values.Where(i => i == null || i.Length > 0);
+            }
+
+            var filteredValues = values.ToList();
+            if (filteredValues.Count == 0)
+            {
+                return options.DefaultValue ?? string.Empty;
+            }
+
+            return string.Join(", ", filteredValues);
         }
 
         #endregion IEnumerable<string>

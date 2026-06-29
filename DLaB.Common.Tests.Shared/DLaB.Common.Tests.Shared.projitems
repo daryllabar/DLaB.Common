@@ -11,5 +11,6 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ConfigTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SubstringByStringTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ToCsvExtensionTests.cs" />
   </ItemGroup>
 </Project>
